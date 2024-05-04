@@ -1,0 +1,52 @@
+"indian_pines", "ghsi"
+"fsdrl", "zhang", "fsdrl", "mcuve", "pcal", "lasso", "spa"
+=14
+
+"lucas_full","lucas_skipped","lucas_downsampled","lucas_min"
+"fsdrl", "bsnet", "mcuve", "pcal", "lasso", "spa"
+=24
+
+total: 14 + 24 = 38
+=======================
+
+1: test_1_regression: 5
+
+"fsdrl", "bsnet", "mcuve", "pcal", "lasso"
+"lucas_full"
+
+2: test_2_regression: 3
+
+"spa"
+"lucas_skipped","lucas_downsampled","lucas_min"
+
+*********************************
+3: test_3_classification: 6
+
+"indian_pines", "ghsi"
+"bsnet", "mcuve", "pcal", "lasso"
+
+*********************************
+4: test_4_classification: 2
+
+"indian_pines", "ghsi"
+"spa"
+
+*********************************
+5: test_5_classification: 4
+
+"indian_pines", "ghsi"
+"fsdrl", "zhang"
+
+6: test_6_classification: 15
+
+"fsdrl", "bsnet", "mcuve", "pcal", "lasso"
+"lucas_skipped","lucas_downsampled","lucas_min"
+
+7:
+
+"spa"
+"lucas_full"
+
+total: 5 + 3 + 8 + 2 + 4 + 15 + 1 = 38
+
+
