@@ -7,12 +7,13 @@ from algorithms.algorithm_bsnet import AlgorithmBSNet
 from algorithms.algorithm_zhang import AlgorithmZhang
 from algorithms.algorithm_bsdr import AlgorithmBSDR
 
+from algorithms.algorithm_reconstructor import AlgorithmReconstructor
+
+
 
 class AlgorithmCreator:
     @staticmethod
     def create(name, target_size, splits, repeat, fold):
-        if name == "bsdr":
-            return AlgorithmBSDR(target_size, splits, repeat, fold)
 
         algorithms = {
             "lasso" : AlgorithmLasso,
@@ -21,10 +22,14 @@ class AlgorithmCreator:
             "pcal" : AlgorithmPCALoading,
             "bsnet" : AlgorithmBSNet,
             "zhang" : AlgorithmZhang,
-            "bsdr" : AlgorithmBSDR
+            "bsdr" : AlgorithmBSDR,
+            "rec" : AlgorithmReconstructor,
         }
 
         if name not in algorithms:
             raise KeyError(f"No algorithm named {name} exists")
+
+        if name in ["bsdr", "rec"]:
+            return algorithms[name](target_size, splits, repeat, fold)
 
         return algorithms[name](target_size, splits)
