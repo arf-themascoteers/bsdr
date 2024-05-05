@@ -23,7 +23,7 @@ class AlgorithmReconstructor(Algorithm):
         dataloader = DataLoader(dataset, batch_size=64000, shuffle=True)
         loss = 0
         sorted_indices = []
-        for epoch in range(100):
+        for epoch in range(1000):
             for batch_idx, (X, y) in enumerate(dataloader):
                 optimizer.zero_grad()
                 y_hat = recann(X)
