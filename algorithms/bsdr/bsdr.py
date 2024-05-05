@@ -1,7 +1,7 @@
 import math
 from sklearn.metrics import mean_squared_error, r2_score
 import torch
-from algorithms.bsdr.annl import ANNL
+from algorithms.bsdr.ann import ANN
 from datetime import datetime
 import os
 from sklearn.metrics import accuracy_score
@@ -15,7 +15,7 @@ class BSDR:
         self.target_size = target_size
         self.class_size = class_size
         self.lr = 0.001
-        self.model = ANNL(self.target_size, self.class_size)
+        self.model = ANN(self.target_size, self.class_size)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()

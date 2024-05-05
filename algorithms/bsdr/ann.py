@@ -2,7 +2,7 @@ import torch.nn as nn
 import torch
 
 
-class ANNL(nn.Module):
+class ANN(nn.Module):
     def __init__(self, target_size, class_size):
         super().__init__()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -16,7 +16,7 @@ class ANNL(nn.Module):
             nn.Linear(64, self.class_size)
         )
         init_vals = torch.linspace(0.001,0.99, target_size+2)
-        self.indices = nn.Parameter(torch.tensor([ANNL.inverse_sigmoid_torch(init_vals[i + 1]) for i in range(self.target_size)], requires_grad=True).to(self.device))
+        self.indices = nn.Parameter(torch.tensor([ANN.inverse_sigmoid_torch(init_vals[i + 1]) for i in range(self.target_size)], requires_grad=True).to(self.device))
         num_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
         print("Number of learnable parameters:", num_params)
 
