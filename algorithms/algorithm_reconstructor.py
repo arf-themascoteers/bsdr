@@ -20,7 +20,7 @@ class AlgorithmReconstructor(Algorithm):
         optimizer = torch.optim.Adam(recann.parameters(), lr=0.001)
         X_train = torch.tensor(self.splits.train_x, dtype=torch.float32).to(self.device)
         dataset = TensorDataset(X_train, X_train)
-        dataloader = DataLoader(dataset, batch_size=64, shuffle=True)
+        dataloader = DataLoader(dataset, batch_size=64000, shuffle=True)
         loss = 0
         sorted_indices = []
         for epoch in range(100):
@@ -30,13 +30,13 @@ class AlgorithmReconstructor(Algorithm):
                 loss = self.criterion(y_hat, y)
                 loss.backward()
                 optimizer.step()
-                ind_loss = torch.pow(y - y_hat,2)
+                ind_loss = torch.mean(torch.pow(y - y_hat,2),dim=0)
                 sorted_indices = (torch.argsort(ind_loss, descending=True)).tolist()
-                print(sorted_indices[:10])
+                print(sorted_indices[0:10])
             print(f"Epoch={epoch} Loss={round(loss.item(), 5)}")
         super()._set_all_indices(sorted_indices)
         selected_indices = sorted_indices[: self.target_size]
         return recann, selected_indices
 
     def get_name(self):
-        return "bsdr"
+        return "rec"
