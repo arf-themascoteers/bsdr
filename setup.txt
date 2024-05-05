@@ -1,6 +1,7 @@
 pip install numpy scikit-learn pandas matplotlib
 pip install plotly
 pip install PyWavelets
+pip install kaleido
 pip install mlxtend
 cd auswahl
 pip install .
