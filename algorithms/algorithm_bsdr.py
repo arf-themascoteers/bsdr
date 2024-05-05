@@ -6,8 +6,8 @@ import torch
 
 
 class AlgorithmBSDR(Algorithm):
-    def __init__(self, target_size, splits):
-        super().__init__(target_size, splits)
+    def __init__(self, target_size, splits, repeat, fold):
+        super().__init__(target_size, splits, repeat, fold)
         self.task = DSManager.get_task_by_dataset_name(splits.get_name())
         torch.manual_seed(1)
         torch.cuda.manual_seed(1)
@@ -17,7 +17,7 @@ class AlgorithmBSDR(Algorithm):
         class_size = 1
         if self.task == "classification":
             class_size = len(np.unique(self.splits.train_y))
-        bsdr = BSDR(self.target_size, class_size, self.splits.get_name())
+        bsdr = BSDR(self.target_size, class_size, self.splits.get_name(), self.repeat, self.fold)
         bsdr.fit(self.splits.train_x, self.splits.train_y, self.splits.validation_x, self.splits.validation_y)
         return bsdr, bsdr.get_indices()
 

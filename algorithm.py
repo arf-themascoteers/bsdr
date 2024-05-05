@@ -16,9 +16,11 @@ from sklearn.metrics import cohen_kappa_score
 
 
 class Algorithm(ABC):
-    def __init__(self, target_size:int, splits:DataSplits):
+    def __init__(self, target_size:int, splits:DataSplits, repeat=0, fold=0):
         self.target_size = target_size
         self.splits = splits
+        self.repeat = repeat
+        self.fold = fold
         self.selected_indices = []
         self.model = None
         self.all_indices = None

@@ -10,7 +10,10 @@ from algorithms.algorithm_bsdr import AlgorithmBSDR
 
 class AlgorithmCreator:
     @staticmethod
-    def create(name, target_size, splits):
+    def create(name, target_size, splits, repeat, fold):
+        if name == "bsdr":
+            return AlgorithmBSDR(target_size, splits, repeat, fold)
+
         algorithms = {
             "lasso" : AlgorithmLasso,
             "spa" : AlgorithmSPA,
