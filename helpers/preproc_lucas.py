@@ -1,7 +1,7 @@
 import pandas as pd
 import pywt
 
-lucas = pd.read_csv("data/lucas/reflectance.csv")
+lucas = pd.read_csv("../data/lucas/reflectance.csv")
 
 bands = list(lucas.columns)
 bands = bands[13:]
@@ -9,7 +9,7 @@ all_columns = ["oc"]+bands
 lucas_full = lucas[all_columns]
 lucas_full.to_csv("data/lucas_full.csv", index=False)
 
-lucas_full = pd.read_csv("data/lucas_full.csv")
+lucas_full = pd.read_csv("../data/lucas_full.csv")
 
 lucas_min = lucas_full.sample(frac=0.04, random_state=40)
 lucas_min.to_csv("data/lucas_min.csv", index=False)

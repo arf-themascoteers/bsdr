@@ -16,7 +16,7 @@ def plot_brazilian():
 
 
 def plot_lucas_absorbance():
-    df = pd.read_csv(r"data/lucas/absorbance.csv")
+    df = pd.read_csv(r"../data/lucas/absorbance.csv")
     data = df.iloc[0,13:].to_numpy()
     x = list(range(data.shape[0]))
     plt.plot(x,data)
@@ -29,7 +29,7 @@ def plot_lucas_absorbance():
 
 
 def plot_lucas_reflectance():
-    df = pd.read_csv(r"data/lucas/reflectance.csv")
+    df = pd.read_csv(r"../data/lucas/reflectance.csv")
     data = df.iloc[0,13:].to_numpy()
     x = list(range(data.shape[0]))
     plt.plot(x,data)
@@ -42,7 +42,7 @@ def plot_lucas_reflectance():
 
 
 def plot_lucas_full():
-    df = pd.read_csv(r"data/lucas_full.csv")
+    df = pd.read_csv(r"../data/lucas_full.csv")
     data = df.iloc[0,1:].to_numpy()
     x = list(range(data.shape[0]))
     plt.plot(x,data)

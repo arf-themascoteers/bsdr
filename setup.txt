@@ -1,4 +1,5 @@
 pip install numpy scikit-learn pandas matplotlib
+pip install plotly
 pip install mlxtend
 cd auswahl
 pip install .

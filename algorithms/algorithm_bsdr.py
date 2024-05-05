@@ -1,11 +1,11 @@
 from algorithm import Algorithm
-from algorithms.bsdr.fscrl import FSCRL
+from algorithms.bsdr.bsdr import BSDR
 import numpy as np
 from ds_manager import DSManager
 import torch
 
 
-class AlgorithmFSCRL(Algorithm):
+class AlgorithmBSDR(Algorithm):
     def __init__(self, target_size, splits):
         super().__init__(target_size, splits)
         self.task = DSManager.get_task_by_dataset_name(splits.get_name())
@@ -17,9 +17,9 @@ class AlgorithmFSCRL(Algorithm):
         class_size = 1
         if self.task == "classification":
             class_size = len(np.unique(self.splits.train_y))
-        fscr = FSCRL(self.target_size, class_size, self.splits.get_name())
-        fscr.fit(self.splits.train_x, self.splits.train_y, self.splits.validation_x, self.splits.validation_y)
-        return fscr, fscr.get_indices()
+        bsdr = BSDR(self.target_size, class_size, self.splits.get_name())
+        bsdr.fit(self.splits.train_x, self.splits.train_y, self.splits.validation_x, self.splits.validation_y)
+        return bsdr, bsdr.get_indices()
 
     def get_name(self):
-        return "fsdrl"
+        return "bsdr"

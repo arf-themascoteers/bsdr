@@ -2,7 +2,7 @@ from evaluator import Evaluator
 
 if __name__ == '__main__':
     tasks = {
-        "algorithms" : ["fsdrl","bsnet"],
+        "algorithms" : ["bsdr","bsnet"],
         "datasets" : ["lucas_full","lucas_downsampled"],
         "target_sizes" : [5, 10, 15, 20, 25, 30]
     }

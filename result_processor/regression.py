@@ -8,7 +8,7 @@ root = "../saved"
 subfolders = ["0_1","0_2","0_3","0_4","0_5","0_6","0_7"]
 locations = [os.path.join(root, subfolder) for subfolder in subfolders]
 locations = [loc for loc in locations if os.path.exists(loc)]
-algorithms = ["fsdrl","bsnet","mcuve","pcal","lasso","spa"]
+algorithms = ["bsdr","bsnet","mcuve","pcal","lasso","spa"]
 datasets = ["lucas_full","lucas_skipped","lucas_downsampled","lucas_min"]
 targets = [5,10,15,20,25,30]
 df2 = pd.DataFrame(columns=["dataset","target_size","algorithm","time","metric1","metric2"])
@@ -34,7 +34,7 @@ def create_dfs():
         for f in files:
             if "details" in f:
                 continue
-            if "fscrl-" in f:
+            if "bsdr-" in f:
                 continue
             path = os.path.join(loc, f)
             if "all_features_summary" in f:

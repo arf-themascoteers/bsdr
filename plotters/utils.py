@@ -36,7 +36,7 @@ metric_map = {
 
 algorithm_map = {
     "all_bands" : "All Bands",
-    "fsdrl":"BSDR",
+    "bsdr":"BSDR",
     "bsnet":"BS-Net-FC",
     "zhang":"Zhang et al.",
     "mcuve":"MCUVE",

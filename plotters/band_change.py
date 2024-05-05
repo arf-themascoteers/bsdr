@@ -4,9 +4,9 @@ import plotly.graph_objects as go
 import os
 
 root = "../saved/0_1"
-locs = [os.path.join(root, sub) for sub in os.listdir(root) if sub.startswith("fscrl-lucas_full-5-")]
+locs = [os.path.join(root, sub) for sub in os.listdir(root) if sub.startswith("bsdr-lucas_full-5-")]
 idx = 10
-loc = "../saved/0_1/fscrl-lucas_full-5-1714512143422615.csv"
+loc = "../saved/0_1/bsdr-lucas_full-5-1714512143422615.csv"
 df = pd.read_csv(loc)
 band_labels = []
 for i in range(1,6):

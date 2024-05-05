@@ -66,7 +66,7 @@ def lasso_remove():
         for f in files:
             if "all_features_" in f:
                 continue
-            if "fscrl-" in f:
+            if "bsdr-" in f:
                 continue
             p = os.path.join(loc, f)
             df = pd.read_csv(p)
