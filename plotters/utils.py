@@ -4,7 +4,7 @@ dataset_map = {
     "lucas_downsampled":"LUCAS (Downsampled)",
     "lucas_min":"LUCAS (Truncated)",
     "indian_pines":"Indian Pines",
-    "ghsi":"GHSI",
+    "ghsi":"GHISA",
 }
 
 metric_map = {
@@ -14,7 +14,7 @@ metric_map = {
         "LUCAS (Downsampled)": "Logarithmic Execution Time",
         "LUCAS (Truncated)": "Logarithmic Execution Time",
         "Indian Pines": "Logarithmic Execution Time",
-        "GHSI": "Logarithmic Execution Time",
+        "GHISA": "Logarithmic Execution Time",
     },
     "metric1":{
         "LUCAS": "$R^2$",
@@ -22,7 +22,7 @@ metric_map = {
         "LUCAS (Downsampled)": "$R^2$",
         "LUCAS (Truncated)": "$R^2$",
         "Indian Pines": "OA (%)",
-        "GHSI": "OA (%)",
+        "GHISA": "OA (%)",
     },
     "metric2":{
         "LUCAS": "$RMSE$",
@@ -30,7 +30,7 @@ metric_map = {
         "LUCAS (Downsampled)": "$RMSE$",
         "LUCAS (Truncated)": "$RMSE$",
         "Indian Pines": "$\kappa$",
-        "GHSI": "$\kappa$",
+        "GHISA": "$\kappa$",
     }
 }
 
