@@ -40,9 +40,11 @@ fig.add_annotation(
     showarrow=False,
     xref="paper", yref="paper",
     xanchor="left", yanchor="middle",
-    textangle=0  # Horizontal text
+    textangle=0,
+    font=dict(  # Setting font size and family
+        size=25,
+        family="Arial"
+    )
 )
-
-
 
 fig.write_image("fig1.png", scale=5)
