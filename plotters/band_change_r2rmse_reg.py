@@ -17,7 +17,7 @@ for index,loc in enumerate(locs):
 
     additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_r2"], mode='lines', name=f'$R^2$')
     fig.add_trace(additional_trace)
-    additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_rmse"], mode='lines', name=f'$RMSE$')
+    additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_rmse"], mode='lines', name=f'RMSE')
     fig.add_trace(additional_trace)
 
     fig.update_layout({

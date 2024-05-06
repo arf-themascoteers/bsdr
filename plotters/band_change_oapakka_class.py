@@ -15,9 +15,9 @@ for index,loc in enumerate(locs):
     fig = go.Figure()
 
 
-    additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_accuracy"], mode='lines', name=f'Overall Accuracy')
+    additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_accuracy"], mode='lines', name=f'OA')
     fig.add_trace(additional_trace)
-    additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_kappa"], mode='lines', name=f"Cohen's Kappa")
+    additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_kappa"], mode='lines', name=f"$\kappa$")
     fig.add_trace(additional_trace)
 
     fig.update_layout({
