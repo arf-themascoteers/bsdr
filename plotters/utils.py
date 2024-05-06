@@ -21,16 +21,16 @@ metric_map = {
         "LUCAS (Skipped)": "$R^2$",
         "LUCAS (Downsampled)": "$R^2$",
         "LUCAS (Truncated)": "$R^2$",
-        "Indian Pines": "OA (%)",
-        "GHISA": "OA (%)",
+        "Indian Pines": "Overall Accuracy",
+        "GHISA": "Overall Accuracy",
     },
     "metric2":{
         "LUCAS": "$RMSE$",
         "LUCAS (Skipped)": "$RMSE$",
         "LUCAS (Downsampled)": "$RMSE$",
         "LUCAS (Truncated)": "$RMSE$",
-        "Indian Pines": "$\kappa$",
-        "GHISA": "$\kappa$",
+        "Indian Pines": "Cohen's Kappa",
+        "GHISA": "Cohen's Kappa",
     }
 }
 
