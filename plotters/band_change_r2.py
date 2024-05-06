@@ -8,19 +8,14 @@ locs = [os.path.join(root, sub) for sub in os.listdir(root) if sub.startswith("b
 idx = 10
 loc = "../saved_results/0_1/fscrl-lucas_full-5-1714510927050816.csv"
 df = pd.read_csv(loc)
-band_labels = []
-for i in range(1,6):
-    band_labels.append(f"band_{i}")
-band_labels = ["epoch"] + band_labels
-df = df[band_labels]
+df = df[["epoch","validation_r2"]]
 limit = 8000
 df = df[df["epoch"]<limit]
 fig = go.Figure()
 
 
-for i in range(1,6):
-    additional_trace = go.Scatter(x=df["epoch"], y=df[f"band_{i}"], mode='lines', name=f'Band Index {i}')
-    fig.add_trace(additional_trace)
+additional_trace = go.Scatter(x=df["epoch"], y=df[f"validation_r2"], mode='lines', name=f'$R^2')
+fig.add_trace(additional_trace)
 
 fig.update_layout({
     'plot_bgcolor': 'white',
@@ -31,7 +26,7 @@ fig.update_layout(yaxis_title="")
 subfolder = os.path.join("../saved_figs", "bands")
 if not os.path.exists(subfolder):
     os.mkdir(subfolder)
-path = os.path.join(subfolder, f"{idx}.png")
+path = os.path.join(subfolder, f"r2_{idx}.png")
 
 fig.write_image(path, scale=5)
 
