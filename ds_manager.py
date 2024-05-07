@@ -37,13 +37,13 @@ class DSManager:
             "lucas_skipped",
             "lucas_downsampled",
             "lucas_full",
-            "ghsi",
+            "ghisa",
             "indian_pines"
         ]
 
     @staticmethod
     def get_task_by_dataset_name(dataset):
-        if dataset in ["ghsi", "indian_pines"]:
+        if dataset in ["ghisa", "indian_pines"]:
             return "classification"
         return "regression"
 
@@ -77,7 +77,7 @@ class DSManager:
     def get_y_column(dataset):
         if dataset == "brazilian":
             return "MO (gddm3)"
-        if dataset == "ghsi":
+        if dataset == "ghisa":
             return "crop"
         if "indian_pines" in dataset:
             return "class"

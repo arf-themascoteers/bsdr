@@ -4,7 +4,7 @@ dataset_map = {
     "lucas_downsampled":"LUCAS (Downsampled)",
     "lucas_min":"LUCAS (Truncated)",
     "indian_pines":"Indian Pines",
-    "ghsi":"GHISA",
+    "ghisa":"GHISA",
 }
 
 metric_map = {

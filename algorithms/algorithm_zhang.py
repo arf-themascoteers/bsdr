@@ -16,7 +16,7 @@ class AlgorithmZhang(Algorithm):
     def get_selected_indices(self):
         class_size = len(np.unique(self.splits.train_y))
         last_layer_input = 100
-        if self.splits.get_name() == "ghsi":
+        if self.splits.get_name() == "ghisa":
             last_layer_input = 64
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         bsnet = ZhangNet(self.splits.train_x.shape[1], class_size, last_layer_input).to(device)

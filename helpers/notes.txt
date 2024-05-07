@@ -1,48 +1,48 @@
-"indian_pines", "ghsi"
-"fsdrl", "zhang", "fsdrl", "mcuve", "pcal", "lasso", "spa"
+"indian_pines", "ghisa"
+"bsdr", "zhang", "bsdr", "mcuve", "pcal", "lasso", "spa"
 =14
 
-"lucas_full","lucas_skipped","lucas_downsampled","lucas_min"
-"fsdrl", "bsnet", "mcuve", "pcal", "lasso", "spa"
-=24
+"lucas_full","lucas_downsampled"
+"bsdr", "bsnet", "mcuve", "pcal", "lasso", "spa"
+=12
 
-total: 14 + 24 = 38
+total: 14 + 12 = 26
 =======================
 
 1: test_1_regression: 5
 
-"fsdrl", "bsnet", "mcuve", "pcal", "lasso"
+"bsdr", "bsnet", "mcuve", "pcal", "lasso"
 "lucas_full"
 
-2: test_2_regression: 3
+2: test_2_regression: 1
 
 "spa"
-"lucas_skipped","lucas_downsampled","lucas_min"
+"lucas_downsampled"
 
 *********************************
-3: test_3_classification: 6
+3: test_3_classification: 8
 
-"indian_pines", "ghsi"
+"indian_pines", "ghisa"
 "bsnet", "mcuve", "pcal", "lasso"
 
 *********************************
 4: test_4_classification: 2
 
-"indian_pines", "ghsi"
+"indian_pines", "ghisa"
 "spa"
 
 *********************************
 5: test_5_classification: 4
 
-"indian_pines", "ghsi"
-"fsdrl", "zhang"
+"indian_pines", "ghisa"
+"bsdr", "zhang"
 
-6: test_6_classification: 15
+6: test_6_classification: 5
 
-"fsdrl", "bsnet", "mcuve", "pcal", "lasso"
-"lucas_skipped","lucas_downsampled","lucas_min"
+"bsdr", "bsnet", "mcuve", "pcal", "lasso"
+"lucas_downsampled"
 
-7:
+7: test_7_regression: 1
 
 "spa"
 "lucas_full"
