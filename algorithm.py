@@ -2,17 +2,8 @@ from abc import ABC, abstractmethod
 from data_splits import DataSplits
 from metrics import Metrics
 from datetime import datetime
-from sklearn.svm import SVR
-from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.neural_network import MLPRegressor
-from sklearn.neural_network import MLPClassifier
 from ds_manager import DSManager
-import math
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import cohen_kappa_score
-import calculator
+from train_test_evaluator import evaluate_train_test_pair
 
 
 class Algorithm(ABC):
@@ -54,49 +45,8 @@ class Algorithm(ABC):
 
     def compute_performance_with_transformed_xs(self, evaluation_train_x, evaluation_test_x):
         task = DSManager.get_task_by_dataset_name(self.splits.get_name())
-        metric1, metric2 = Algorithm.evaluate_train_test_pair(task,
-                                                              evaluation_train_x, self.splits.evaluation_train_y,
-                                                              evaluation_test_x, self.splits.evaluation_test_y)
+        metric1, metric2 = evaluate_train_test_pair(task, evaluation_train_x, self.splits.evaluation_train_y, evaluation_test_x, self.splits.evaluation_test_y, self.splits.scaler)
         return metric1, metric2
-
-    @staticmethod
-    def evaluate_train_test_pair(task, X_train, y_train, X_test, y_test):
-        evaluator_algorithm = Algorithm.get_metric_evaluator(task)
-        evaluator_algorithm.fit(X_train, y_train)
-        y_pred = evaluator_algorithm.predict(X_test)
-        return Algorithm.calculate_metrics(task, y_test, y_pred)
-
-    @staticmethod
-    def get_metric_evaluator(task):
-        gowith = "sv"
-
-        if gowith == "rf":
-            if task == "regression":
-                return RandomForestRegressor()
-            return RandomForestClassifier()
-        elif gowith == "sv":
-            if task == "regression":
-                return SVR(C=100, kernel='rbf', gamma=1.)
-            return SVC(C=1e5, kernel='rbf', gamma=1.)
-        else:
-            if task == "regression":
-                return MLPRegressor(max_iter=2000)
-            return MLPClassifier(max_iter=2000)
-
-    def calculate_metrics(self, task, y_test, y_pred):
-        if task == "classification":
-            return self.calculate_metrics_for_classification(y_test, y_pred)
-        return self.calculate_metrics_for_regression(y_test, y_pred)
-
-    def calculate_metrics_for_classification(self, y_test, y_pred):
-        accuracy = accuracy_score(y_test, y_pred)
-        kappa = cohen_kappa_score(y_test, y_pred)
-        return accuracy, kappa
-
-    def calculate_metrics_for_regression(self, y_test, y_pred):
-        r2 = calculator.calculate_r2(y_test, y_pred, self.splits.scaler)
-        rmse = calculator.calculate_rmse(y_test, y_pred, self.splits.scaler)
-        return r2, rmse
 
     @abstractmethod
     def get_selected_indices(self):

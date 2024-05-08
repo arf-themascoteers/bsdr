@@ -1,4 +1,7 @@
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import cohen_kappa_score
+from sklearn.metrics import r2_score
+from sklearn.metrics import mean_squared_error
 import math
 
 

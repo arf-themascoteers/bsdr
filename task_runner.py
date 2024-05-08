@@ -4,9 +4,10 @@ from reporter import Reporter
 import pandas as pd
 from metrics import Metrics
 from algorithm import Algorithm
+from train_test_evaluator import evaluate_train_test_pair
 
 
-class Evaluator:
+class TaskRunner:
     def __init__(self, task, repeat=1, folds=1, filename="results.csv", skip_all_bands=False):
         self.task = task
         self.repeat = repeat
@@ -76,18 +77,19 @@ class Evaluator:
 
     def evaluate_for_all_features(self, dataset):
         for fold, splits in enumerate(dataset.get_k_folds()):
-            self.evaluate_for_all_features_fold(fold, dataset.name,
-                                                splits.evaluation_train_x, splits.evaluation_train_y,
-                                                splits.evaluation_test_x, splits.evaluation_test_y)
+            self.evaluate_for_all_features_fold(fold, splits)
 
-    def evaluate_for_all_features_fold(self, fold, dataset_name, X_train, y_train, X_test, y_test):
-        metric1, metric2 = self.reporter.get_saved_metrics_for_all_feature(fold, dataset_name)
+    def evaluate_for_all_features_fold(self, fold, splits):
+        metric1, metric2 = self.reporter.get_saved_metrics_for_all_feature(fold, splits.get_name())
         if metric1 is not None and metric2 is not None:
-            print(f"Fold {fold} for {dataset_name} was done")
+            print(f"Fold {fold} for {splits.get_name()} was done")
             return
-        task = DSManager.get_task_by_dataset_name(dataset_name)
-        metric1, metric2 = Algorithm.evaluate_train_test_pair(task, X_train, y_train, X_test, y_test)
-        self.reporter.write_details_all_features(fold, dataset_name, metric1, metric2)
+        task = DSManager.get_task_by_dataset_name(splits.get_name())
+        metric1, metric2 = evaluate_train_test_pair(task,
+                                                    splits.evaluation_train_x, splits.evaluation_train_y,
+                                                    splits.evaluation_test_x, splits.evaluation_test_y,
+                                                    splits.scaler)
+        self.reporter.write_details_all_features(fold, splits.get_name(), metric1, metric2)
 
 
 

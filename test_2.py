@@ -1,4 +1,4 @@
-from evaluator import Evaluator
+from task_runner import TaskRunner
 
 if __name__ == '__main__':
     tasks = {
@@ -6,5 +6,5 @@ if __name__ == '__main__':
         "datasets" : ["lucas"],
         "target_sizes" : [5, 10, 15, 20, 25, 30]
     }
-    ev = Evaluator(tasks,1,10,"2.csv")
+    ev = TaskRunner(tasks,1,10,"2.csv")
     ev.evaluate()
