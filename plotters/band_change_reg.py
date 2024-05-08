@@ -3,10 +3,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import os
 
-#root = "../saved_results/0_1"
-#locs = [os.path.join(root, sub) for sub in os.listdir(root) if sub.startswith("bsdr-lucas_full-5-")]
-#idx = 10
-locs = ["../saved_results/0_1/fscrl-lucas_full-5-1714510927050816.csv", "../saved_results/0_6/fscrl-lucas_downsampled-5-171457873091906.csv"]
+
+locs = ["../results/bsdr-lucas-5-0-0.csv"]
 bands = [4200,66]
 for index,loc in enumerate(locs):
     df = pd.read_csv(loc)
@@ -39,7 +37,7 @@ for index,loc in enumerate(locs):
     subfolder = os.path.join("../saved_figs", "bands")
     if not os.path.exists(subfolder):
         os.mkdir(subfolder)
-    path = os.path.join(subfolder, f"regression_{index}.png")
+    path = os.path.join(subfolder, f"regression.png")
 
     fig.write_image(path, scale=5)
 

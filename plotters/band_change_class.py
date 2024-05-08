@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import os
 
-locs = ["../saved_results/1/bsdr-ghisaconus-5-0-0.csv", "../saved_results/1/bsdr-indian_pines-5-0-0.csv"]
+locs = ["../results/bsdr-ghisaconus-5-0-0.csv", "../results/bsdr-indian_pines-5-0-0.csv"]
 bands = [131,200]
 for index,loc in enumerate(locs):
     df = pd.read_csv(loc)

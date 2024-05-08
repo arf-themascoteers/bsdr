@@ -6,7 +6,7 @@ import os
 #root = "../saved_results/0_1"
 #locs = [os.path.join(root, sub) for sub in os.listdir(root) if sub.startswith("bsdr-lucas_full-5-")]
 #idx = 10
-locs = ["../saved_results/0_5/fscrl-ghisa-5-171449809410246.csv", "../saved_results/0_5/fscrl-indian_pines-5-1714482682207401.csv"]
+locs = ["../results/bsdr-ghisaconus-5-0-0.csv", "../results/bsdr-indian_pines-5-0-0.csv"]
 for index,loc in enumerate(locs):
     df = pd.read_csv(loc)
     df = df[["epoch","validation_accuracy","validation_kappa"]]
@@ -36,7 +36,7 @@ for index,loc in enumerate(locs):
     subfolder = os.path.join("../saved_figs", "bands")
     if not os.path.exists(subfolder):
         os.mkdir(subfolder)
-    path = os.path.join(subfolder, f"classification_r2_rmse_{index}.png")
+    path = os.path.join(subfolder, f"classification_oa_kappa_{index}.png")
 
     fig.write_image(path, scale=5)
 
