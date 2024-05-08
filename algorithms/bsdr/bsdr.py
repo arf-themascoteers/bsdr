@@ -1,5 +1,4 @@
 import math
-from sklearn.metrics import mean_squared_error, r2_score
 import torch
 from algorithms.bsdr.ann import ANN
 from datetime import datetime
@@ -8,12 +7,14 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import cohen_kappa_score
 import numpy as np
 from algorithms.bsdr.linterp import LinearInterpolationModule
+import calculator
 
 
 class BSDR:
-    def __init__(self, target_size, class_size, dataset_name, repeat, fold):
+    def __init__(self, target_size, class_size, split, repeat, fold):
         self.target_size = target_size
         self.class_size = class_size
+        self.split = split
         self.repeat = repeat
         self.fold = fold
         self.lr = 0.001
@@ -22,7 +23,7 @@ class BSDR:
         self.model.to(self.device)
         self.criterion = self.get_criterion()
         self.epochs = 4000
-        self.csv_file = os.path.join("results", f"bsdr-{dataset_name}-{target_size}-{self.repeat}-{self.fold}.csv")
+        self.csv_file = os.path.join("results", f"bsdr-{self.split.get_name()}-{target_size}-{self.repeat}-{self.fold}.csv")
         self.original_feature_size = None
         self.start_time = datetime.now()
 
@@ -75,8 +76,8 @@ class BSDR:
         y = y.detach().cpu().numpy()
         if self.is_regression():
             y_hat = y_hat.reshape(-1)
-            r2 = r2_score(y, y_hat)
-            rmse = math.sqrt(mean_squared_error(y, y_hat))
+            r2 = calculator.r2_score(y, y_hat, self.split.scaler)
+            rmse = calculator.calculate_rmse(y, y_hat, self.split.scaler)
             self.model.train()
             return max(r2,0), rmse
         y_hat = np.argmax(y_hat, axis=1)

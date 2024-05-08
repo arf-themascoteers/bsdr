@@ -20,7 +20,7 @@ class DSManager:
         if self.get_task() != "regression":
             df[self.y_column], class_labels = pd.factorize(df[self.y_column])
         self.full_data = df.to_numpy()
-        self.full_data = self._normalize(self.full_data)
+        self.scaler = self._normalize()
 
     def __repr__(self):
         return self.get_name()
@@ -76,15 +76,17 @@ class DSManager:
             return "class"
         return "oc"
 
-    def _normalize(self, data):
-        normalized_len = data.shape[1]
+    def _normalize(self):
+        normalized_len = self.full_data.shape[1]
         if self.get_task() == "classification":
-            normalized_len = data.shape[1] - 1
+            normalized_len = self.full_data.shape[1] - 1
         for i in range(normalized_len):
             scaler = MinMaxScaler()
-            x_scaled = scaler.fit_transform(data[:, i].reshape(-1, 1))
-            data[:, i] = np.squeeze(x_scaled)
-        return data
+            x_scaled = scaler.fit_transform(self.full_data[:, i].reshape(-1, 1))
+            self.full_data[:, i] = np.squeeze(x_scaled)
+            if self.get_task() == "regression" and i == self.full_data.shape[1]-1:
+                return scaler
+        return None
 
     def get_k_folds(self):
         if self.folds == 1:
@@ -99,7 +101,7 @@ class DSManager:
     def split_train_validation_ev_parts(self, train_data, test_data):
         train_data, validation_data = train_test_split(train_data, test_size=0.1, random_state=40)
         evaluation_train_data, evaluation_test_data = train_test_split(test_data, test_size=0.5, random_state=40)
-        return DataSplits(self.name, *DSManager.get_X_y_from_data(train_data),
+        return DataSplits(self.name, self.scaler, *DSManager.get_X_y_from_data(train_data),
                *DSManager.get_X_y_from_data(validation_data),
                *DSManager.get_X_y_from_data(evaluation_train_data),
                *DSManager.get_X_y_from_data(evaluation_test_data)

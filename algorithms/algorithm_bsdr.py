@@ -17,7 +17,7 @@ class AlgorithmBSDR(Algorithm):
         class_size = 1
         if self.task == "classification":
             class_size = len(np.unique(self.splits.train_y))
-        bsdr = BSDR(self.target_size, class_size, self.splits.get_name(), self.repeat, self.fold)
+        bsdr = BSDR(self.target_size, class_size, self.splits, self.repeat, self.fold)
         bsdr.fit(self.splits.train_x, self.splits.train_y, self.splits.validation_x, self.splits.validation_y)
         return bsdr, bsdr.get_indices()
 

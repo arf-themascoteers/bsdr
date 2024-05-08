@@ -9,10 +9,10 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPRegressor
 from sklearn.neural_network import MLPClassifier
 from ds_manager import DSManager
-from sklearn.metrics import r2_score, mean_squared_error
 import math
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import cohen_kappa_score
+import calculator
 
 
 class Algorithm(ABC):
@@ -83,22 +83,19 @@ class Algorithm(ABC):
                 return MLPRegressor(max_iter=2000)
             return MLPClassifier(max_iter=2000)
 
-    @staticmethod
-    def calculate_metrics(task, y_test, y_pred):
+    def calculate_metrics(self, task, y_test, y_pred):
         if task == "classification":
-            return Algorithm.calculate_metrics_for_classification(y_test, y_pred)
-        return Algorithm.calculate_metrics_for_regression(y_test, y_pred)
+            return self.calculate_metrics_for_classification(y_test, y_pred)
+        return self.calculate_metrics_for_regression(y_test, y_pred)
 
-    @staticmethod
-    def calculate_metrics_for_classification(y_test, y_pred):
+    def calculate_metrics_for_classification(self, y_test, y_pred):
         accuracy = accuracy_score(y_test, y_pred)
         kappa = cohen_kappa_score(y_test, y_pred)
         return accuracy, kappa
 
-    @staticmethod
-    def calculate_metrics_for_regression(y_test, y_pred):
-        r2 = r2_score(y_test, y_pred)
-        rmse = math.sqrt(mean_squared_error(y_test, y_pred))
+    def calculate_metrics_for_regression(self, y_test, y_pred):
+        r2 = calculator.calculate_r2(y_test, y_pred, self.splits.scaler)
+        rmse = calculator.calculate_rmse(y_test, y_pred, self.splits.scaler)
         return r2, rmse
 
     @abstractmethod
