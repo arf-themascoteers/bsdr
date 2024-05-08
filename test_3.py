@@ -2,9 +2,9 @@ from evaluator import Evaluator
 
 if __name__ == '__main__':
     tasks = {
-        "algorithms" : ["bsnet", "mcuve", "pcal", "lasso"],
-        "datasets" : ["indian_pines", "ghisaconus"],
+        "algorithms" : ["spa"],
+        "datasets" : ["lucas"],
         "target_sizes" : [5, 10, 15, 20, 25, 30]
     }
-    ev = Evaluator(tasks,1,10,"test_3_classification.csv")
+    ev = Evaluator(tasks,1,10,"3.csv")
     ev.evaluate()
