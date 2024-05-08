@@ -63,7 +63,7 @@ class BSDR:
             optimizer.step()
             optimizer.zero_grad()
             row = self.dump_row(epoch, linterp, y, linterp_validation, y_validation)
-            row = [round(item, 5) if isinstance(item, float) else item for item in row]
+            #row = [round(item, 5) if isinstance(item, float) else item for item in row]
             if epoch%50 == 0:
                 print("".join([str(i).ljust(20) for i in row]))
         return self.get_indices()

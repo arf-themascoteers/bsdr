@@ -81,8 +81,8 @@ class Reporter:
         if len(df) == 0:
             return
 
-        metric1 = max(round(df["metric1"].mean(),2),0)
-        metric2 = max(round(df["metric2"].mean(),2),0)
+        metric1 = max(df["metric1"].mean(),0)
+        metric2 = max(df["metric2"].mean(),0)
 
         df2 = pd.read_csv(self.all_features_summary_file)
         mask = (df2['dataset'] == dataset)
@@ -118,4 +118,4 @@ class Reporter:
 
     @staticmethod
     def sanitize_metric(metric):
-        return max(round(metric, 2), 0)
+        return max(metric, 0)
