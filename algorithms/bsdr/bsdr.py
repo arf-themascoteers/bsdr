@@ -63,8 +63,8 @@ class BSDR:
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
-            #row = self.dump_row(epoch, linterp, y, linterp_validation, y_validation)
-            #row = [round(item, 5) if isinstance(item, float) else item for item in row]
+            # row = self.dump_row(epoch, linterp, y, linterp_validation, y_validation)
+            # row = [round(item, 5) if isinstance(item, float) else item for item in row]
             # if epoch%50 == 0:
             #     print("".join([str(i).ljust(20) for i in row]))
         return self.get_indices()
@@ -76,7 +76,7 @@ class BSDR:
         y = y.detach().cpu().numpy()
         if self.is_regression():
             y_hat = y_hat.reshape(-1)
-            r2 = calculator.r2_score(y, y_hat, self.split.scaler)
+            r2 = calculator.calculate_r2(y, y_hat, self.split.scaler)
             rmse = calculator.calculate_rmse(y, y_hat, self.split.scaler)
             self.model.train()
             return max(r2,0), rmse
