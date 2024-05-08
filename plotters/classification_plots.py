@@ -15,7 +15,7 @@ colors = ['#636EFA','#19D3F3' , '#00CC96', '#AB63FA', '#FFA15A','#44FF00', '#EF5
 markers = ['star-open', 'pentagon-open', 'circle-open', 'hash-open', 'triangle-up-open','diamond-open', 'square-open', None]
 
 for metric in ["time","metric1", "metric2"]:
-    for dataset in ["GHISA", "Indian Pines"]:
+    for dataset in ["GHISACONUS", "Indian Pines"]:
         fig = go.Figure()
         dataset_df = df_original[df_original["dataset"] == dataset].copy()
         dataset_df["time"] = dataset_df["time"].apply(lambda x: np.log10(x) if x != 0 else 0)

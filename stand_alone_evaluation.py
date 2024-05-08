@@ -32,7 +32,7 @@ def compare(dataset, folds, task, bands1, bands2):
         print(f"{bands2} is better than {bands1}")
 
 
-dataset = "lucas_full"
+dataset = "lucas"
 folds = 10
 task = "regression"
 bands1 = [400,1000]

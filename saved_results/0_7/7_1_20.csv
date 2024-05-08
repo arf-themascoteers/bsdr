@@ -1,2 +1,0 @@
-dataset,target_size,algorithm,time,metric1,metric2,selected_features
-lucas_full,20,spa,73116.94,0.82,0.06,0-71-315-426-683-1124-1569-2030-2875-3003-3092-3223-3402-3613-3652-3781-3848-3896-4033-4199

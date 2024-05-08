@@ -9,7 +9,7 @@ subfolders = ["0_1","0_2","0_3","0_4","0_5","0_6","0_7"]
 locations = [os.path.join(root, subfolder) for subfolder in subfolders]
 locations = [loc for loc in locations if os.path.exists(loc)]
 algorithms = ["bsdr","zhang","bsnet","mcuve","pcal","lasso","spa"]
-datasets = ["ghisa","indian_pines"]
+datasets = ["ghisaconus","indian_pines"]
 targets = [5,10,15,20,25,30]
 df2 = pd.DataFrame(columns=["dataset","target_size","algorithm","time","metric1","metric2"])
 

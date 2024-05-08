@@ -1,20 +1,17 @@
 dataset_map = {
-    "lucas_full":"LUCAS",
-    "lucas_skipped":"LUCAS (Skipped)",
-    "lucas_downsampled":"LUCAS (Downsampled)",
-    "lucas_min":"LUCAS (Truncated)",
+    "lucas":"LUCAS",
     "indian_pines":"Indian Pines",
-    "ghisa":"GHISA",
+    "ghisaconus":"GHISACONUS",
 }
 
 metric_map = {
     "time":{
-        "LUCAS": "Logarithmic Execution Time",
-        "LUCAS (Skipped)": "Logarithmic Execution Time",
-        "LUCAS (Downsampled)": "Logarithmic Execution Time",
-        "LUCAS (Truncated)": "Logarithmic Execution Time",
-        "Indian Pines": "Logarithmic Execution Time",
-        "GHISA": "Logarithmic Execution Time",
+        "LUCAS": "Logarithmic Training Time",
+        "LUCAS (Skipped)": "Logarithmic Training Time",
+        "LUCAS (Downsampled)": "Logarithmic Training Time",
+        "LUCAS (Truncated)": "Logarithmic Training Time",
+        "Indian Pines": "Logarithmic Training Time",
+        "GHISACONUS": "Logarithmic Training Time",
     },
     "metric1":{
         "LUCAS": "$R^2$",
@@ -22,15 +19,12 @@ metric_map = {
         "LUCAS (Downsampled)": "$R^2$",
         "LUCAS (Truncated)": "$R^2$",
         "Indian Pines": "OA",
-        "GHISA": "OA",
+        "GHISACONUS": "OA",
     },
     "metric2":{
         "LUCAS": "RMSE",
-        "LUCAS (Skipped)": "RMSE",
-        "LUCAS (Downsampled)": "RMSE",
-        "LUCAS (Truncated)": "RMSE",
         "Indian Pines": "$\kappa$",
-        "GHISA": "$\kappa$",
+        "GHISACONUS": "$\kappa$",
     }
 }
 

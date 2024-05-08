@@ -31,19 +31,14 @@ class DSManager:
     @staticmethod
     def get_dataset_names():
         return [
-            "demmin",
-            "brazilian",
-            "lucas_min",
-            "lucas_skipped",
-            "lucas_downsampled",
-            "lucas_full",
-            "ghisa",
+            "lucas",
+            "ghisaconus",
             "indian_pines"
         ]
 
     @staticmethod
     def get_task_by_dataset_name(dataset):
-        if dataset in ["ghisa", "indian_pines"]:
+        if dataset in ["ghisaconus", "indian_pines"]:
             return "classification"
         return "regression"
 
@@ -75,9 +70,7 @@ class DSManager:
 
     @staticmethod
     def get_y_column(dataset):
-        if dataset == "brazilian":
-            return "MO (gddm3)"
-        if dataset == "ghisa":
+        if dataset == "ghisaconus":
             return "crop"
         if "indian_pines" in dataset:
             return "class"
@@ -130,32 +123,3 @@ class DSManager:
         return self.split_train_validation_ev_parts(train_data, test_data)
 
 
-if __name__ == "__main__":
-    d = DSManager("lucas_skipped")
-    print(d.full_data.shape)
-    d = DSManager("lucas_skipped",1)
-    for fold, (train_x, train_y, validation_x, validation_y, evaluation_train_x, evaluation_train_y, evaluation_test_x, evaluation_test_y) in enumerate(d.get_k_folds()):
-        print(fold)
-        print(train_x.shape)
-        print(train_y.shape)
-        print(validation_x.shape)
-        print(validation_y.shape)
-        print(evaluation_train_x.shape)
-        print(evaluation_train_y.shape)
-        print(evaluation_test_x.shape)
-        print(evaluation_test_y.shape)
-
-
-    d = DSManager("lucas_skipped",10)
-    for fold, (train_x, train_y, validation_x, validation_y, evaluation_train_x, evaluation_train_y, evaluation_test_x, evaluation_test_y) in enumerate(d.get_k_folds()):
-        print(fold)
-        print(train_x.shape)
-        print(train_y.shape)
-        print(validation_x.shape)
-        print(validation_y.shape)
-        print(evaluation_train_x.shape)
-        print(evaluation_train_y.shape)
-        print(evaluation_test_x.shape)
-        print(evaluation_test_y.shape)
-        print("bye")
-        break

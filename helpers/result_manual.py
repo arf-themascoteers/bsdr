@@ -9,10 +9,10 @@ def remove_mcuve():
     summary_df = pd.read_csv(summary)
     details_df = pd.read_csv(details)
 
-    summary_df = summary_df[ (summary_df["algorithm"] != "mcuve") | (summary_df["dataset"] != "lucas_full")]
+    summary_df = summary_df[ (summary_df["algorithm"] != "mcuve") | (summary_df["dataset"] != "lucas")]
     summary_df.to_csv(summary, index=False)
 
-    details_df = details_df[(details_df["algorithm"] != "mcuve") | (details_df["dataset"] != "lucas_full")]
+    details_df = details_df[(details_df["algorithm"] != "mcuve") | (details_df["dataset"] != "lucas")]
     details_df.to_csv(details, index=False)
 
 
