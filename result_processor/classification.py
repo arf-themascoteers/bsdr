@@ -4,11 +4,11 @@ import plotters.utils as utils
 
 main_df = pd.DataFrame()
 all_df = pd.DataFrame()
-root = "../saved"
-subfolders = ["0_1","0_2","0_3","0_4","0_5","0_6","0_7"]
+root = "../saved_results"
+subfolders = ["1","2"]
 locations = [os.path.join(root, subfolder) for subfolder in subfolders]
 locations = [loc for loc in locations if os.path.exists(loc)]
-algorithms = ["bsdr","zhang","bsnet","mcuve","pcal","lasso","spa"]
+algorithms = ["pcal","lasso","mcuve","spa","bsnet","zhang","bsdr"]
 datasets = ["ghisaconus","indian_pines"]
 targets = [5,10,15,20,25,30]
 df2 = pd.DataFrame(columns=["dataset","target_size","algorithm","time","metric1","metric2"])
@@ -89,7 +89,7 @@ def add_all_in_main():
                 }
             elif len(entries) >= 1:
                 if len(entries) > 1:
-                    #print(f"All Multiple {d} {t} -- {len(entries)}: {list(entries['source'])}")
+                    print(f"All Multiple {d} {t} -- {len(entries)}: {list(entries['source'])}")
                     pass
                 df2.loc[len(df2)] = {
                     "dataset": d,

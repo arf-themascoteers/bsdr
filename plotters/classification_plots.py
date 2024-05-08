@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 root = "../saved_figs"
 
 
-df_original = pd.read_csv("../merged_results/classification.csv")
+df_original = pd.read_csv("../final_results/classification.csv")
 priority_order = ['PCA-loading', 'LASSO', 'MCUVE', 'SPA','BS-Net-FC','Zhang et al.', 'BSDR','All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
