@@ -28,7 +28,7 @@ class TaskRunner:
                     splits.print_splits()
                     for algorithm in self.task["algorithms"]:
                         for repeat_no in range(self.repeat):
-                            algorithm_object = AlgorithmCreator.create(algorithm, target_size, splits, repeat_no, fold, verbose=True)
+                            algorithm_object = AlgorithmCreator.create(algorithm, target_size, splits, repeat_no, fold, self.verbose)
                             self.process_a_case(algorithm_object, fold, repeat_no)
 
     def process_a_case(self, algorithm:Algorithm, fold, repeat):
