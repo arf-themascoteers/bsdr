@@ -13,7 +13,7 @@ from algorithms.algorithm_reconstructor import AlgorithmReconstructor
 
 class AlgorithmCreator:
     @staticmethod
-    def create(name, target_size, splits, repeat, fold):
+    def create(name, target_size, splits, repeat, fold, verbose=True):
 
         algorithms = {
             "lasso" : AlgorithmLasso,
@@ -30,6 +30,6 @@ class AlgorithmCreator:
             raise KeyError(f"No algorithm named {name} exists")
 
         if name in ["bsdr", "rec"]:
-            return algorithms[name](target_size, splits, repeat, fold)
+            return algorithms[name](target_size, splits, repeat, fold, verbose=verbose)
 
         return algorithms[name](target_size, splits)
