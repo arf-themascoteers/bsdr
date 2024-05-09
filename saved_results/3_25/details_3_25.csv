@@ -1,0 +1,2 @@
+dataset,target_size,fold,algorithm,repeat,time,metric1,metric2,selected_features
+lucas,25,0,spa,0,55163.45,0.8432624284931538,30.015564024443194,0-45-334-430-657-1367-1976-2876-3013-3091-3397-3614-3821-3887-4199
