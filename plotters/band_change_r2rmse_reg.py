@@ -2,15 +2,12 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 
-locs = ["../results/bsdr-lucas-5-0-0.csv"]
+locs = ["../temp/4v_500/bsdr-lucas-5-0-0.csv"]
 for index,loc in enumerate(locs):
     df = pd.read_csv(loc)
     df = df[["epoch","validation_r2","validation_rmse"]]
-    limit = 8000
-    df = df[df["epoch"]<limit]
 
-
-    fig, ax1 = plt.subplots()
+    fig, ax1 = plt.subplots(1, 1, figsize=(7, 10))
 
     ax1.set_xlabel('Epoch')
     ax1.set_ylabel('$R^2$', color='tab:blue')
@@ -31,7 +28,7 @@ for index,loc in enumerate(locs):
     subfolder = os.path.join("../saved_figs", "bands")
     if not os.path.exists(subfolder):
         os.mkdir(subfolder)
-    path = os.path.join(subfolder, f"regression_r2_rmse.png")
+    path = os.path.join(subfolder, f"LUCAS_r2_rmse.png")
 
 
     plt.savefig(path)
