@@ -1,10 +1,10 @@
 import pandas as pd
 
 
-def create_latex_table(metric):
+def create_latex_table(metric, dataset):
     head = r"""
 \begin{table}[H]
-\caption{Details of the datasets used in this study.\label{reg_r2}}
+\caption{Details of the datasets used in this study.\label{reg_oa}}
 %\newcolumntype{C}{>{\centering\arraybackslash}X}
 \begin{tabularx}{\textwidth}{Lrrrrrr}
 \toprule
@@ -18,23 +18,23 @@ def create_latex_table(metric):
     \noindent{\footnotesize{}}
     \end{table}"""
 
-    time_df = pd.read_csv("../final_results/regression_time.csv")
-    r2_df = pd.read_csv("../final_results/regression_r2.csv")
-    rmse_df = pd.read_csv("../final_results/regression_rmse.csv")
+    time_df = pd.read_csv(f"../final_results/{dataset}_time.csv")
+    oa_df = pd.read_csv(f"../final_results/{dataset}_oa.csv")
+    kappa_df = pd.read_csv(f"../final_results/{dataset}_kappa.csv")
     
-    priority_order = ['PCAL', 'LASSO', 'MCUVE','SPA','BS-Net-FC', 'BSDR','All Bands']
+    priority_order = ['PCAL', 'LASSO', 'MCUVE','SPA','BS-Net-FC','Zhang et al.', 'BSDR','All Bands']
     
     time_df['algorithm'] = pd.Categorical(time_df['algorithm'], categories=priority_order, ordered=True)
     time_df = time_df.sort_values('algorithm')
 
-    r2_df['algorithm'] = pd.Categorical(r2_df['algorithm'], categories=priority_order, ordered=True)
-    r2_df = r2_df.sort_values('algorithm')
+    oa_df['algorithm'] = pd.Categorical(oa_df['algorithm'], categories=priority_order, ordered=True)
+    oa_df = oa_df.sort_values('algorithm')
 
-    rmse_df['algorithm'] = pd.Categorical(rmse_df['algorithm'], categories=priority_order, ordered=True)
-    rmse_df = rmse_df.sort_values('algorithm')
+    kappa_df['algorithm'] = pd.Categorical(kappa_df['algorithm'], categories=priority_order, ordered=True)
+    kappa_df = kappa_df.sort_values('algorithm')
 
-    keys = ['time', 'r2', 'rmse']
-    dfs = [time_df, r2_df, rmse_df]
+    keys = ['time', 'oa', 'kappa']
+    dfs = [time_df, oa_df, kappa_df]
     index = keys.index(metric)
 
     targets_size = [5, 10, 15, 20, 25, 30]
@@ -55,4 +55,5 @@ def create_latex_table(metric):
 
     print(head + mid + tail)
 
-create_latex_table("r2")
+create_latex_table("oa","Indian Pines")
+
