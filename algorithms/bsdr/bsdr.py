@@ -47,7 +47,8 @@ class BSDR:
 
     def fit(self, X, y, X_validation, y_validation):
         self.original_feature_size = X.shape[1]
-        self.write_columns()
+        if self.verbose:
+            self.write_columns()
         self.model.train()
         optimizer, scheduler = self.create_optimizer()
         X = torch.tensor(X, dtype=torch.float32).to(self.device)
