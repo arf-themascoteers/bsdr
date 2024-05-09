@@ -1,11 +1,10 @@
 import pandas as pd
 
 
-def create_latex_table(metric):
+def create_latex_table(metric, dataset):
     head = r"""
 \begin{table}[H]
-\caption{Details of the datasets used in this study.\label{reg_r2}}
-%\newcolumntype{C}{>{\centering\arraybackslash}X}
+\caption{$R^2$ based on 10-fold cross validation results for different target sizes on LUCAS dataset. BSDR outperforms other algorithms with a consistent standard deviation.\label{reg_r2}}
 \begin{tabularx}{\textwidth}{Lrrrrrr}
 \toprule
 \multicolumn{1}{c}{\textbf{}} & \multicolumn{6}{c}{\textbf{Target Size}} \\
@@ -18,12 +17,12 @@ def create_latex_table(metric):
     \noindent{\footnotesize{}}
     \end{table}"""
 
-    time_df = pd.read_csv("../final_results/regression_time.csv")
-    r2_df = pd.read_csv("../final_results/regression_r2.csv")
-    rmse_df = pd.read_csv("../final_results/regression_rmse.csv")
-    
-    priority_order = ['PCAL', 'LASSO', 'MCUVE','SPA','BS-Net-FC', 'BSDR','All Bands']
-    
+    time_df = pd.read_csv(f"../final_results/{dataset}_time.csv")
+    r2_df = pd.read_csv(f"../final_results/{dataset}_r2.csv")
+    rmse_df = pd.read_csv(f"../final_results/{dataset}_rmse.csv")
+
+    priority_order = ['PCAL', 'LASSO', 'MCUVE', 'SPA', 'BS-Net-FC', 'Zhang et al.', 'BSDR', 'All Bands']
+
     time_df['algorithm'] = pd.Categorical(time_df['algorithm'], categories=priority_order, ordered=True)
     time_df = time_df.sort_values('algorithm')
 
@@ -42,17 +41,27 @@ def create_latex_table(metric):
 
     base_df = dfs[index]
     for algorithm in priority_order:
+        if algorithm == "All Bands":
+            continue
         if metric == "time" and algorithm == "All Bands":
             continue
         df = base_df[base_df['algorithm'] == algorithm]
+        if len(df) == 0:
+            continue
         row = df.iloc[0]
-        mid = mid + f"{algorithm} "
-        for t in targets_size:
-            key = f"{metric}_{t}"
-            mid = mid + f"& {row[key]} "
-        mid = mid + r"\\ " + "\n"
-    mid = mid + r"\bottomrule " +"\n"
+
+        if algorithm == "All Bands":
+            mid = mid + algorithm + r" & \multicolumn{6}{c}{" + row[f"{metric}_{targets_size[0]}"] + r"} \\" + "\n"
+        else:
+            mid = mid + f"{algorithm} "
+            for t in targets_size:
+                key = f"{metric}_{t}"
+                mid = mid + f"& {row[key]} "
+            mid = mid + r"\\ " + "\n"
+    mid = mid + r"\bottomrule " + "\n"
 
     print(head + mid + tail)
 
-create_latex_table("r2")
+
+create_latex_table("time", "LUCAS")
+

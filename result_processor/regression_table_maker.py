@@ -72,8 +72,8 @@ def create_table():
         r2_df.loc[len(r2_df)] = {"algorithm": algorithm, "r2_5": r2_strs[0], "r2_10": r2_strs[1], "r2_15": r2_strs[2], "r2_20": r2_strs[3], "r2_25": r2_strs[4], "r2_30": r2_strs[5]}
         rmse_df.loc[len(rmse_df)] = {"algorithm": algorithm, "rmse_5": rmse_strs[0], "rmse_10": rmse_strs[1], "rmse_15": rmse_strs[2], "rmse_20": rmse_strs[3], "rmse_25": rmse_strs[4], "rmse_30": rmse_strs[5]}
 
-    time_df.to_csv("../final_results/regression_time.csv", index=False)
-    r2_df.to_csv("../final_results/regression_r2.csv", index=False)
-    rmse_df.to_csv("../final_results/regression_rmse.csv", index=False)
+    time_df.to_csv("../final_results/LUCAS_time.csv", index=False)
+    r2_df.to_csv("../final_results/LUCAS_r2.csv", index=False)
+    rmse_df.to_csv("../final_results/LUCAS_rmse.csv", index=False)
 
 create_table()

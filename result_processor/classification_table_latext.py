@@ -4,8 +4,7 @@ import pandas as pd
 def create_latex_table(metric, dataset):
     head = r"""
 \begin{table}[H]
-\caption{Details of the datasets used in this study.\label{reg_oa}}
-%\newcolumntype{C}{>{\centering\arraybackslash}X}
+\caption{Overall Accuracy (OA) based on 10-fold cross validation results for different target sizes on Indian Pines dataset. BSDR outperforms other algorithms with a consistent standard deviation.\label{reg_oa}}
 \begin{tabularx}{\textwidth}{Lrrrrrr}
 \toprule
 \multicolumn{1}{c}{\textbf{}} & \multicolumn{6}{c}{\textbf{Target Size}} \\
@@ -42,18 +41,24 @@ def create_latex_table(metric, dataset):
 
     base_df = dfs[index]
     for algorithm in priority_order:
+        if algorithm == "All Bands":
+            continue
         if metric == "time" and algorithm == "All Bands":
             continue
         df = base_df[base_df['algorithm'] == algorithm]
         row = df.iloc[0]
-        mid = mid + f"{algorithm} "
-        for t in targets_size:
-            key = f"{metric}_{t}"
-            mid = mid + f"& {row[key]} "
-        mid = mid + r"\\ " + "\n"
+
+        if algorithm == "All Bands":
+            mid = mid + algorithm + r" & \multicolumn{6}{c}{"+ row[f"{metric}_{targets_size[0]}"] + r"} \\" +"\n"
+        else:
+            mid = mid + f"{algorithm} "
+            for t in targets_size:
+                key = f"{metric}_{t}"
+                mid = mid + f"& {row[key]} "
+            mid = mid + r"\\ " + "\n"
     mid = mid + r"\bottomrule " +"\n"
 
     print(head + mid + tail)
 
-create_latex_table("oa","Indian Pines")
+create_latex_table("time","GHISACONUS")
 
