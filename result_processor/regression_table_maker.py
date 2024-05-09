@@ -5,9 +5,9 @@ df = pd.read_csv("../final_results/details.csv")
 
 algorithms = df["algorithm"].unique()
 
+time_df = pd.DataFrame(columns=["algorithm", "time_5", "time_10", "time_15", "time_15", "time_20", "time_25", "time_30"])
 r2_df = pd.DataFrame(columns=["algorithm", "r2_5", "r2_10", "r2_15", "r2_15", "r2_20", "r2_25", "r2_30"])
 rmse_df = pd.DataFrame(columns=["algorithm", "rmse_5", "rmse_10", "rmse_15", "rmse_15", "rmse_20", "rmse_25", "rmse_30"])
-time_df = pd.DataFrame(columns=["algorithm", "time_5", "time_10", "time_15", "time_15", "time_20", "time_25", "time_30"])
 
 for algorithm in algorithms:
     if algorithm == "All Bands":
@@ -37,5 +37,19 @@ for algorithm in algorithms:
         time_str = f"{time_mean:.2f}±{time_std:.2f}"
         r2_str = f"{r2_mean:.2f}±{r2_std:.2f}"
         rmse_str = f"{r2_mean:.2f}±{r2_std:.2f}"
+
+        time_strs.append(time_str)
+        r2_strs.append(r2_str)
+        rmse_strs.append(rmse_str)
+
+    if len(time_strs) != 6:
+        continue
+    time_df.loc[len(time_df)] = {"algorithm": algorithm, "time_5": time_strs[0], "time_10": time_strs[1], "time_15": time_strs[2], "time_20": time_strs[3], "time_25": time_strs[4], "time_30": time_strs[5]}
+    r2_df.loc[len(r2_df)] = {"algorithm": algorithm, "r2_5": r2_strs[0], "r2_10": r2_strs[1], "r2_15": r2_strs[2], "r2_20": r2_strs[3], "r2_25": r2_strs[4], "r2_30": r2_strs[5]}
+    rmse_df.loc[len(rmse_df)] = {"algorithm": algorithm, "rmse_5": rmse_strs[0], "rmse_10": rmse_strs[1], "rmse_15": rmse_strs[2], "rmse_20": rmse_strs[3], "rmse_25": rmse_strs[4], "rmse_30": rmse_strs[5]}
+
+time_df.to_csv("../final_results/regression_time.csv", index=False)
+r2_df.to_csv("../final_results/regression_r2.csv", index=False)
+rmse_df.to_csv("../final_results/regression_rmse.csv", index=False)
 
 
