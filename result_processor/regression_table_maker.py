@@ -1,6 +1,4 @@
 import pandas as pd
-import numpy as np
-
 
 
 def get_metrics(df2, target_size=None):
@@ -23,7 +21,7 @@ def get_metrics(df2, target_size=None):
     r2_str = f"{r2_mean:.2f}"
     rmse_str = f"{rmse_mean:.2f}"
 
-    if target_size is not None:
+    if target_size is not None and len(df3)>1:
         time_str = f"{time_str}±{time_std:.2f}"
         r2_str = f"{r2_str}±{r2_std:.2f}"
         rmse_str = f"{rmse_str}±{rmse_std:.2f}"
@@ -43,9 +41,9 @@ def get_metrics_for_6_targets(df, algorithm):
     if algorithm == "All Bands":
         time_str, r2_str, rmse_str = get_metrics(df)
         print(time_str, r2_str, rmse_str)
-        time_strs.append([time_str] * 6)
-        r2_strs.append([r2_str] * 6)
-        rmse_strs.append([rmse_str] * 6)
+        time_strs = time_strs + ([time_str] * 6)
+        r2_strs = r2_strs + ([r2_str] * 6)
+        rmse_strs = rmse_strs + ([rmse_str] * 6)
         return time_strs, r2_strs, rmse_strs
 
     for target_size in [5, 10, 15, 20, 25, 30]:

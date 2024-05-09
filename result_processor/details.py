@@ -5,8 +5,7 @@ import plotters.utils as utils
 main_df = pd.DataFrame()
 all_df = pd.DataFrame()
 root = "../saved_results"
-subfolders = ["1","2"]
-locations = [os.path.join(root, subfolder) for subfolder in subfolders]
+locations = [os.path.join(root, subfolder) for subfolder in os.listdir(root)]
 locations = [loc for loc in locations if os.path.exists(loc)]
 algorithms = ["pcal","lasso","mcuve","bsnet","bsdr"]
 datasets = ["lucas"]
