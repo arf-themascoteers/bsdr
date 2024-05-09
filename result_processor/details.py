@@ -7,7 +7,7 @@ all_df = pd.DataFrame()
 root = "../saved_results"
 locations = [os.path.join(root, subfolder) for subfolder in os.listdir(root)]
 locations = [loc for loc in locations if os.path.exists(loc)]
-algorithms = ["pcal","lasso","mcuve","bsnet","bsdr"]
+algorithms = ["mcuve","bsnet","bsdr"]
 datasets = ["lucas"]
 targets = [5,10,15,20,25,30]
 df2 = pd.DataFrame(columns=["dataset","target_size","algorithm","time","metric1","metric2"])

@@ -21,7 +21,7 @@ def create_latex_table(metric, dataset):
     r2_df = pd.read_csv(f"../final_results/{dataset}_r2.csv")
     rmse_df = pd.read_csv(f"../final_results/{dataset}_rmse.csv")
 
-    priority_order = ['PCAL', 'LASSO', 'MCUVE', 'SPA', 'BS-Net-FC', 'Zhang et al.', 'BSDR', 'All Bands']
+    priority_order = ['MCUVE', 'SPA', 'BS-Net-FC', 'Zhang et al.', 'BSDR', 'All Bands']
 
     time_df['algorithm'] = pd.Categorical(time_df['algorithm'], categories=priority_order, ordered=True)
     time_df = time_df.sort_values('algorithm')
