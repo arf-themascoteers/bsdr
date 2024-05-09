@@ -13,7 +13,7 @@ for dataset in datasets.keys():
         loc = os.path.join(root, file)
         if not os.path.exists(loc):
             continue
-        fig, ax = plt.subplots(1,1, figsize=(7, 10))
+        fig, ax = plt.subplots(1,1, figsize=(7, 5))
         df = pd.read_csv(loc)
         band_labels = []
         for i in range(1,target_size+1):

@@ -7,7 +7,7 @@ for index,loc in enumerate(locs):
     df = pd.read_csv(loc)
     df = df[["epoch","validation_r2","validation_rmse"]]
 
-    fig, ax1 = plt.subplots(1, 1, figsize=(7, 10))
+    fig, ax1 = plt.subplots(1, 1, figsize=(7, 5))
 
     ax1.set_xlabel('Epoch')
     ax1.set_ylabel('$R^2$', color='tab:blue')
