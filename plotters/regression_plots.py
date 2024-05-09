@@ -8,7 +8,7 @@ root = "../saved_figs"
 
 
 df_original = pd.read_csv("../final_results/regression.csv")
-priority_order = ['PCA-loading', 'LASSO', 'MCUVE',
+priority_order = ['PCAL', 'LASSO', 'MCUVE',
                   'SPA',
                   'BS-Net-FC', 'BSDR','All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)

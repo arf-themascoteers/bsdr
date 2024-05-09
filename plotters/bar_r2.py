@@ -8,7 +8,7 @@ def plot_bar():
     root = "../saved_figs"
     df_original = pd.read_csv(f"../final_results/regression.csv")
     df = df_original[df_original["algorithm"] != "All Bands"].copy()
-    algorithms = ['BSDR', 'BS-Net-FC', 'MCUVE', 'PCA-loading', 'LASSO', 'SPA']
+    algorithms = ['BSDR', 'BS-Net-FC', 'MCUVE', 'PCAL', 'LASSO', 'SPA']
     df_lucas = df[(df["dataset"] == "LUCAS") & (df["target_size"] == 5)]
     df_short = df[(df["dataset"] == "LUCAS (Truncated)") & (df["target_size"] == 5)]
 

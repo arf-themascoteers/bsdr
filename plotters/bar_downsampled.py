@@ -9,7 +9,7 @@ def plot_bar():
     df_original = pd.read_csv(f"../final_results/regression.csv")
     df = df_original[df_original["algorithm"] != "All Bands"].copy()
     df['time'] = df['time'].apply(lambda x: np.log10(x+10))
-    algorithms = ['BSDR', 'BS-Net-FC', 'MCUVE', 'PCA-loading', 'LASSO', 'SPA']
+    algorithms = ['BSDR', 'BS-Net-FC', 'MCUVE', 'PCAL', 'LASSO', 'SPA']
     df_lucas = df[(df["dataset"] == "LUCAS") & (df["target_size"] == 30)]
     df_short = df[(df["dataset"] == "LUCAS (Downsampled)") & (df["target_size"] == 30)]
 

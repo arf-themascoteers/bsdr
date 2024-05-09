@@ -34,7 +34,7 @@ algorithm_map = {
     "bsnet":"BS-Net-FC",
     "zhang":"Zhang et al.",
     "mcuve":"MCUVE",
-    "pcal":"PCA-loading",
+    "pcal":"PCAL",
     "lasso":"LASSO",
     "spa":"SPA",
 }
@@ -45,7 +45,7 @@ color_map = {
     "BS-Net-FC":"red",
     "Zhang et al.":"green",
     "MCUVE":"purple",
-    "PCA-loading":"brown",
+    "PCAL":"brown",
     "LASSO":"pink",
     "SPA":"cyan",
 }
