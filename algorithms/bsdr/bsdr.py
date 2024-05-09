@@ -23,7 +23,7 @@ class BSDR:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()
-        self.epochs = 4000
+        self.epochs = 1000
         self.csv_file = os.path.join("results", f"bsdr-{self.split.get_name()}-{target_size}-{self.repeat}-{self.fold}.csv")
         self.original_feature_size = None
         self.start_time = datetime.now()
