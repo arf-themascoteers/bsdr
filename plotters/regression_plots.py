@@ -9,12 +9,12 @@ root = "../saved_figs"
 
 df_original = pd.read_csv("../final_results/regression.csv")
 priority_order = ['PCA-loading', 'LASSO', 'MCUVE',
-                  #'SPA',
+                  'SPA',
                   'BS-Net-FC', 'BSDR','All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
 colors = ['#636EFA','#19D3F3' , '#00CC96',
-          #'#AB63FA',
+          '#AB63FA',
           '#FFA15A', '#EF553B', '#000000']
 markers = ['star-open', 'pentagon-open', 'circle-open', 'hash-open', 'triangle-up-open', 'square-open', None]
 
