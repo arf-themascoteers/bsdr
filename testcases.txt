@@ -1,0 +1,57 @@
+Datasets:
+
+    Classification:
+        1. ghisaconus
+        2. indian_pines
+
+    Regression:
+        1. lucas
+
+Algorithms:
+
+    Classification:
+        1. pcal
+        2. lasso
+        3. mcuve
+        4. spa
+        5. bsnet
+        6. zhang
+        7. bsdr
+        8. all_bands
+
+    Regression:
+        1. pcal
+        2. lasso
+        3. mcuve
+        4. spa
+        5. bsnet
+        6. bsdr
+        7. all_bands
+
+Total Cases:
+    Classification: 2 X 8 = 16
+    Regression: 1 X 7 = 7
+    Total: 16 + 7 = 23
+    Without all bands: 23 - 3 = 20
+
+#############################################
+
+Test Cases:
+
+    1. 2 X 6 = 12
+        Datasets: ghisaconus, indian_pines
+        Algorithms: pcal, lasso, mcuve, spa, bsnet, zhang
+    2. 1 X 4 = 4
+        Datasets: lucas
+        Algorithms: pcal, lasso, mcuve, bsnet
+    3. 1 X 1 = 1
+        Datasets: lucas
+        Algorithms: spa
+    4. 2 X 1 = 2
+        Datasets: ghisaconus, indian_pines
+        Algorithms: bsdr
+    5. 1 X 1 = 1
+        Datasets: lucas
+        Algorithms: bsdr
+
+    Total: 12 + 4 + 1 + 2 + 1 = 20
