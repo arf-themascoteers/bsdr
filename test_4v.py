@@ -2,7 +2,7 @@ from task_runner import TaskRunner
 
 if __name__ == '__main__':
     tasks = {
-        "algorithms" : ["bsdr9","bsdr5"],
+        "algorithms" : ["bsdr10","bsdr5"],
         "datasets" : ["indian_pines","lucas", "ghisaconus"],
         "target_sizes" : [10, 15, 20, 25, 30, 5]
     }

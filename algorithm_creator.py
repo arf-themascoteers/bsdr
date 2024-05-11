@@ -18,6 +18,7 @@ from algorithms.algorithm_bsdr6 import AlgorithmBSDR6
 from algorithms.algorithm_bsdr7 import AlgorithmBSDR7
 from algorithms.algorithm_bsdr8 import AlgorithmBSDR8
 from algorithms.algorithm_bsdr9 import AlgorithmBSDR9
+from algorithms.algorithm_bsdr10 import AlgorithmBSDR10
 
 
 class AlgorithmCreator:
@@ -42,13 +43,14 @@ class AlgorithmCreator:
             "bsdr6" : AlgorithmBSDR6,
             "bsdr7" : AlgorithmBSDR7,
             "bsdr8" : AlgorithmBSDR8,
-            "bsdr9" : AlgorithmBSDR9
+            "bsdr9" : AlgorithmBSDR9,
+            "bsdr10" : AlgorithmBSDR10
         }
 
         if name not in algorithms:
             raise KeyError(f"No algorithm named {name} exists")
 
-        if name in ["bsdr","bsdr1","bsdr2","bsdr3","bsdr4", "bsdr5", "bsdr6","bsdr7","bsdr8","bsdr9","rec"]:
+        if name in ["bsdr","bsdr1","bsdr2","bsdr3","bsdr4", "bsdr5", "bsdr6","bsdr7","bsdr8","bsdr9","bsdr10","rec"]:
             return algorithms[name](target_size, splits, repeat, fold, verbose=verbose)
 
         return algorithms[name](target_size, splits)
