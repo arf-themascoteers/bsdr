@@ -1,5 +1,5 @@
 import torch
-from algorithms.bsdr.ann import ANN
+from algorithms.bsdr9.ann9 import ANN9
 from datetime import datetime
 import os
 from sklearn.metrics import accuracy_score
@@ -9,7 +9,7 @@ from algorithms.bsdr.linterp import LinearInterpolationModule
 import calculator
 
 
-class BSDR:
+class BSDR9:
     def __init__(self, target_size, class_size, split, machine_name, repeat, fold, structure=None, verbose=True, epochs=2000):
         self.target_size = target_size
         self.class_size = class_size
@@ -19,7 +19,7 @@ class BSDR:
         self.fold = fold
         self.verbose = verbose
         self.lr = 0.001
-        self.model = ANN(self.target_size, self.class_size, structure)
+        self.model = ANN9(self.target_size, self.class_size, structure)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()
@@ -64,7 +64,9 @@ class BSDR:
             y_validation = y_validation.type(torch.LongTensor).to(self.device)
         for epoch in range(self.epochs):
             y_hat = self.model(linterp)
-            loss = self.criterion(y_hat, y)
+            loss_mse = self.criterion(y_hat, y)
+            loss_reg = self.model.get_group_loss()
+            loss = loss_mse + 0.1*loss_reg
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -74,7 +76,9 @@ class BSDR:
                 row = self.dump_row(epoch, optimizer, linterp, y, linterp_validation, y_validation)
                 row = [round(item, 5) if isinstance(item, float) else item for item in row]
                 if epoch%50 == 0:
+                    print("Loss:",loss_reg.item(), loss_mse.item())
                     print("".join([str(i).ljust(20) for i in row]))
+                    print("1st Band:", " ".join([str(round(i,4)) for i in self.model.get_all_indices()[0:10].tolist()]))
         return self.get_indices()
 
     def evaluate(self,spline,y):
@@ -109,7 +113,7 @@ class BSDR:
                    f"train_{self.get_metric1()}",f"validation_{self.get_metric1()}",
                    f"train_{self.get_metric2()}",f"validation_{self.get_metric2()}",
                    "time","lr"]
-        for index,p in enumerate(self.model.get_indices()):
+        for index in range(self.target_size):
             columns.append(f"band_{index+1}")
         print("".join([c.ljust(20) for c in columns]))
         with open(self.csv_file, 'w') as file:
@@ -134,7 +138,7 @@ class BSDR:
         return row
 
     def get_indices(self):
-        indices = torch.round(self.model.get_indices() * self.original_feature_size ).to(torch.int64).tolist()
+        indices = [int(torch.round(index).item()) for index in self.model.get_indices()*self.original_feature_size]
         return list(dict.fromkeys(indices))
 
     def transform(self, X):

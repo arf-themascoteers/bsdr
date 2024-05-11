@@ -1,5 +1,5 @@
 import torch
-from algorithms.bsdr.ann import ANN
+from algorithms.bsdr7.ann7 import ANN7
 from datetime import datetime
 import os
 from sklearn.metrics import accuracy_score
@@ -9,7 +9,7 @@ from algorithms.bsdr.linterp import LinearInterpolationModule
 import calculator
 
 
-class BSDR:
+class BSDR7:
     def __init__(self, target_size, class_size, split, machine_name, repeat, fold, structure=None, verbose=True, epochs=2000):
         self.target_size = target_size
         self.class_size = class_size
@@ -19,7 +19,7 @@ class BSDR:
         self.fold = fold
         self.verbose = verbose
         self.lr = 0.001
-        self.model = ANN(self.target_size, self.class_size, structure)
+        self.model = ANN7(self.target_size, self.class_size, structure)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()
@@ -64,7 +64,12 @@ class BSDR:
             y_validation = y_validation.type(torch.LongTensor).to(self.device)
         for epoch in range(self.epochs):
             y_hat = self.model(linterp)
-            loss = self.criterion(y_hat, y)
+            loss_mse = self.criterion(y_hat, y)
+
+            loss_reg = self.get_indices_reg_loss()
+            loss = loss_mse + loss_reg
+
+
             loss.backward()
             optimizer.step()
             optimizer.zero_grad()
@@ -75,7 +80,15 @@ class BSDR:
                 row = [round(item, 5) if isinstance(item, float) else item for item in row]
                 if epoch%50 == 0:
                     print("".join([str(i).ljust(20) for i in row]))
+                    print(loss_mse.item(), loss_reg.item())
         return self.get_indices()
+
+    def get_indices_reg_loss(self):
+        loss = torch.tensor(0.0, dtype=torch.float32).to(self.device)
+        for index in self.model.indices:
+            loss = loss + torch.relu(-1*index)
+            loss = loss + torch.relu(index - self.original_feature_size)
+        return loss
 
     def evaluate(self,spline,y):
         self.model.eval()

@@ -1,15 +1,15 @@
 import torch
-from algorithms.bsdr.ann import ANN
+from algorithms.bsdr8.ann8 import ANN8
 from datetime import datetime
 import os
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import cohen_kappa_score
 import numpy as np
-from algorithms.bsdr.linterp import LinearInterpolationModule
+from algorithms.bsdr8.approximator import get_splines
 import calculator
 
 
-class BSDR:
+class BSDR8:
     def __init__(self, target_size, class_size, split, machine_name, repeat, fold, structure=None, verbose=True, epochs=2000):
         self.target_size = target_size
         self.class_size = class_size
@@ -19,7 +19,7 @@ class BSDR:
         self.fold = fold
         self.verbose = verbose
         self.lr = 0.001
-        self.model = ANN(self.target_size, self.class_size, structure)
+        self.model = ANN8(self.target_size, self.class_size, structure)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()
@@ -54,9 +54,9 @@ class BSDR:
         self.model.train()
         optimizer, scheduler = self.create_optimizer()
         X = torch.tensor(X, dtype=torch.float32).to(self.device)
-        linterp = LinearInterpolationModule(X, self.device)
+        linterp = get_splines(X, self.device)
         X_validation = torch.tensor(X_validation, dtype=torch.float32).to(self.device)
-        linterp_validation = LinearInterpolationModule(X_validation, self.device)
+        linterp_validation = get_splines(X_validation, self.device)
         y = torch.tensor(y, dtype=torch.float32).to(self.device)
         y_validation = torch.tensor(y_validation, dtype=torch.float32).to(self.device)
         if not self.is_regression():
