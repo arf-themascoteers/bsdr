@@ -6,5 +6,5 @@ if __name__ == '__main__':
         "datasets" : ["ghisaconus","indian_pines","lucas"],
         "target_sizes" : [5, 10, 15, 20, 25, 30]
     }
-    ev = TaskRunner(tasks,1,1,"4v.csv", verbose=True)
+    ev = TaskRunner(tasks,1,1,"4v.csv", skip_all_bands=True,verbose=True)
     ev.evaluate()

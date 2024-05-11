@@ -10,7 +10,7 @@ import calculator
 
 
 class BSDR:
-    def __init__(self, target_size, class_size, split, repeat, fold, verbose=True):
+    def __init__(self, target_size, class_size, split, repeat, fold, verbose=True, epochs=500):
         self.target_size = target_size
         self.class_size = class_size
         self.split = split
@@ -22,7 +22,7 @@ class BSDR:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()
-        self.epochs = 500
+        self.epochs = epochs
         self.csv_file = os.path.join("results", f"bsdr-{self.split.get_name()}-{target_size}-{self.repeat}-{self.fold}.csv")
         self.original_feature_size = None
         self.start_time = datetime.now()

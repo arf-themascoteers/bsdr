@@ -63,5 +63,5 @@ def create_latex_table(metric, dataset):
     print(head + mid + tail)
 
 
-create_latex_table("r2", "LUCAS")
+create_latex_table("time", "LUCAS")
 
