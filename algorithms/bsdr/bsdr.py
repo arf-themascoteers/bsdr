@@ -10,7 +10,7 @@ import calculator
 
 
 class BSDR:
-    def __init__(self, target_size, class_size, split, repeat, fold, verbose=True, epochs=500):
+    def __init__(self, target_size, class_size, split, repeat, fold, structure=None, verbose=True, epochs=2000):
         self.target_size = target_size
         self.class_size = class_size
         self.split = split
@@ -18,7 +18,7 @@ class BSDR:
         self.fold = fold
         self.verbose = verbose
         self.lr = 0.001
-        self.model = ANN(self.target_size, self.class_size)
+        self.model = ANN(self.target_size, self.class_size, structure)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         self.criterion = self.get_criterion()
