@@ -63,11 +63,11 @@ class BSDR11:
             y = y.type(torch.LongTensor).to(self.device)
             y_validation = y_validation.type(torch.LongTensor).to(self.device)
         epoch = 0
-        while len(self.get_indices()) > 10:
+        while len(self.get_indices()) > self.target_size:
             y_hat = self.model(linterp)
             loss_mse = self.criterion(y_hat, y)
             loss_reg = self.model.get_group_loss()
-            lam = 10
+            lam = 3
             loss_reg = lam * loss_reg
             loss = loss_mse + loss_reg
             loss.backward()
@@ -82,7 +82,7 @@ class BSDR11:
                     print("Loss:",loss_reg.item(), loss_mse.item())
                     print("".join([str(i).ljust(20) for i in row]))
                     for j in range(0, self.target_size):
-                        print(f"Band {j+1}:", " ".join([str(round(i,4)) for i in self.model.get_all_indices()[j*self.model.group_size:(j*self.model.group_size)+10].tolist()]))
+                        print(f"Index {j+1}:", " ".join([str(round(i,4)) for i in self.model.get_all_indices()[j*self.model.group_size:(j*self.model.group_size)+self.model.group_size].tolist()]))
 
                     print("Number of indices:", len(self.get_indices()))
             epoch += 1

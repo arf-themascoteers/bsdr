@@ -10,8 +10,8 @@ class ANN11(nn.Module):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.target_size = target_size
         self.class_size = class_size
-        self.group_size = 10
-        init_vals = get_points(0.001, 0.99, self.target_size, 10)
+        self.group_size = 5
+        init_vals = get_points(0.001, 0.99, self.target_size, self.group_size)
         self.indices = nn.Parameter(torch.tensor([ANN11.inverse_sigmoid_torch(i) for i in init_vals], requires_grad=True).to(self.device))
         if structure == None:
             structure = [128,64]
@@ -38,8 +38,6 @@ class ANN11(nn.Module):
 
     def forward(self, linterp):
         outputs = linterp(self.get_all_indices())
-        # outputs = outputs.view(outputs.shape[0], self.target_size, self.group_size)
-        # outputs2 = outputs.mean(dim=2)
         soc_hat = self.linear(outputs)
         if self.class_size == 1:
             soc_hat = soc_hat.reshape(-1)
@@ -47,11 +45,6 @@ class ANN11(nn.Module):
 
     def get_all_indices(self):
         return torch.sigmoid(self.indices)
-
-    def get_indices(self):
-        all_indices = self.get_all_indices()
-        indices = torch.stack([torch.mean(all_indices[i*self.group_size:(i*self.group_size)+self.group_size]) for i in range(self.target_size)])
-        return indices
 
     def get_group_loss(self):
         loss = torch.tensor(0.0, dtype=torch.float32).to(self.device)
