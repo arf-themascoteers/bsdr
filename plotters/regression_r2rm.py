@@ -43,8 +43,8 @@ for metric_index,metric in enumerate(["metric1", "metric2"]):
         legend.get_title().set_fontweight('bold')
 
     axes[metric_index].grid(True, linestyle='--', alpha=0.6)
-    if metric_index == 0:
-        axes[metric_index].set_title(f"LUCAS dataset", fontsize=22, pad=20)
+    #if metric_index == 0:
+        #axes[metric_index].set_title(f"LUCAS dataset", fontsize=22, pad=20)
 
 subfolder = os.path.join(root, "regression")
 os.makedirs(subfolder, exist_ok=True)
