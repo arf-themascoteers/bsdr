@@ -12,14 +12,16 @@ df_original = df_original.sort_values('algorithm')
 colors = ['#909c86', '#e389b9', '#269658', '#5c1ad6', '#f20a21', '#000000']
 markers = ['s', 'P', 'D', '^', 'o', '*', '.']
 labels = ["Logarithmic Training Time","OA", "$\kappa$"]
-
+df_original["time"] = np.log10(df_original["time"].replace(0, 1))  # To avoid -inf for zero values
+min_time = df_original["time"].min()-0.1
+max_time = df_original["time"].max()+0.1
 datasets = ["GHISACONUS", "Indian Pines"]
 
 for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
+    fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(15, 6))
     for ds_index, dataset in enumerate(datasets):
-
         dataset_df = df_original[df_original["dataset"] == dataset].copy()
-        dataset_df["time"] = np.log10(dataset_df["time"].replace(0, 1))  # To avoid -inf for zero values
+
         #algorithms = dataset_df["algorithm"].unique()
         for index, algorithm in enumerate(priority_order):
             alg_df = dataset_df[dataset_df["algorithm"] == algorithm]
@@ -28,30 +30,31 @@ for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
                 if metric == "time":
                     continue
                 else:
-                    ax.plot(alg_df['target_size'], alg_df[metric], label=algorithm,
+                    axes[ds_index].plot(alg_df['target_size'], alg_df[metric], label=algorithm,
                             linestyle='--', color=colors[index])
             else:
-                ax.plot(alg_df['target_size'], alg_df[metric],
+                axes[ds_index].plot(alg_df['target_size'], alg_df[metric],
                         label=display_alg[index], marker=markers[index], color=colors[index],
                         fillstyle='none', markersize=10, linewidth=2
                         )
 
-        ax.set_xlabel('Target size', fontsize=18)
-        ax.set_ylabel(labels[metric_index], fontsize=18)
-        ax.tick_params(axis='both', which='major', labelsize=14)
+        axes[ds_index].set_xlabel('Target size', fontsize=18)
+        axes[ds_index].set_ylabel(labels[metric_index], fontsize=18)
+        axes[ds_index].set_ylim(min_time, max_time)
+        axes[ds_index].tick_params(axis='both', which='major', labelsize=14)
         if ds_index == len(datasets)-1:
-            legend = ax.legend(title="Algorithms", loc='upper left', fontsize=18,bbox_to_anchor=(1.05, 1))
+            legend = axes[ds_index].legend(title="Algorithms", loc='upper left', fontsize=18,bbox_to_anchor=(1.05, 1))
             legend.get_title().set_fontsize('18')
             legend.get_title().set_fontweight('bold')
 
-        ax.grid(True, linestyle='--', alpha=0.6)
+        axes[ds_index].grid(True, linestyle='--', alpha=0.6)
+        axes[ds_index].set_title(f"{dataset} dataset", fontsize=22, pad=20)
 
-        fig.set_size_inches(10, 6)
-
-        subfolder = os.path.join(root, "classification", metric)
-        os.makedirs(subfolder, exist_ok=True)
-        path = os.path.join(subfolder, f"{dataset}.png")
-        plt.tight_layout()
-        plt.savefig(path, dpi=300)
-        plt.close(fig)
+    subfolder = os.path.join(root, "classification")
+    os.makedirs(subfolder, exist_ok=True)
+    path = os.path.join(subfolder, f"time.png")
+    plt.tight_layout()
+    fig.subplots_adjust(wspace=0.5)
+    plt.savefig(path)
+    plt.close(fig)
 
