@@ -8,7 +8,9 @@ def create_latex():
     for fold in range(10):
         fold_df = df[df["fold"] == fold]
 
-        g_bands = ", ".join(fold_df["selected_features"].values[0].split("-"))
+        g_bands = fold_df["selected_features"].values[0].split("-")
+        g_bands = [str(int(band)+1) for band in g_bands]
+        g_bands = ", ".join(g_bands)
 
         print(f"{fold+1} & {g_bands}  \\\\")
 
