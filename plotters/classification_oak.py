@@ -44,7 +44,7 @@ for metric_index,metric in enumerate(["metric1", "metric2"]):
 
         axes[metric_index, ds_index].grid(True, linestyle='--', alpha=0.6)
         if metric_index == 0:
-            axes[metric_index, ds_index].set_title(f"{dataset} dataset", fontsize=22, pad=20)
+            axes[metric_index, ds_index].set_title(f"{dataset}", fontsize=22, pad=20)
 
 subfolder = os.path.join(root, "classification")
 os.makedirs(subfolder, exist_ok=True)

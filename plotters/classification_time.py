@@ -48,7 +48,7 @@ for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
             legend.get_title().set_fontweight('bold')
 
         axes[ds_index].grid(True, linestyle='--', alpha=0.6)
-        axes[ds_index].set_title(f"{dataset} dataset", fontsize=22, pad=20)
+        axes[ds_index].set_title(f"{dataset}", fontsize=22, pad=20)
 
     subfolder = os.path.join(root, "classification")
     os.makedirs(subfolder, exist_ok=True)

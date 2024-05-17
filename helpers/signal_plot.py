@@ -1,11 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-lucas = pd.read_csv("data/lucas_downsampled_min.csv")
-data = lucas.iloc[120,1:].to_numpy()
+lucas = pd.read_csv("../data/lucas.csv")
+data = lucas.iloc[120,1::10].to_numpy()
 x = list(range(data.shape[0]))
 #plt.figure(figsize=(8, 3))
-plt.scatter(x,data, marker=".")
+plt.scatter(x,data, marker=".", s=10)
 plt.xticks([])
 plt.yticks([])
 plt.xlabel("Band Index", fontsize=18)
