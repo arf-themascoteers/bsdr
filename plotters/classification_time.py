@@ -6,15 +6,15 @@ import matplotlib.pyplot as plt
 root = "../saved_figs"
 df_original = pd.read_csv("../final_results/classification.csv")
 priority_order = ['MCUVE', 'SPA', 'BS-Net-FC', 'Zhang et al.', 'BSDR', 'All Bands']
-display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'BS-Net-Classifier [25]', 'BSDR', 'All Bands']
+display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'BS-Net-Classifier [25]', 'Proposed BSDR', 'All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
 colors = ['#909c86', '#e389b9', '#269658', '#5c1ad6', '#f20a21', '#000000']
 markers = ['s', 'P', 'D', '^', 'o', '*', '.']
 labels = ["Logarithmic Training Time","OA", "$\kappa$"]
-df_original["time"] = np.log10(df_original["time"].replace(0, 1))  # To avoid -inf for zero values
-min_time = df_original["time"].min()-0.1
-max_time = df_original["time"].max()+0.1
+# df_original["time"] = np.log10(df_original["time"].replace(0, 1))  # To avoid -inf for zero values
+# min_time = df_original["time"].min()-0.1
+# max_time = df_original["time"].max()+0.1
 datasets = ["GHISACONUS", "Indian Pines"]
 
 for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
@@ -40,8 +40,9 @@ for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
 
         axes[ds_index].set_xlabel('Target size', fontsize=18)
         axes[ds_index].set_ylabel(labels[metric_index], fontsize=18)
-        axes[ds_index].set_ylim(min_time, max_time)
+#        axes[ds_index].set_ylim(min_time, max_time)
         axes[ds_index].tick_params(axis='both', which='major', labelsize=14)
+        axes[ds_index].set_yscale('log')
         if ds_index == len(datasets)-1:
             legend = axes[ds_index].legend(title="Algorithms", loc='upper left', fontsize=18,bbox_to_anchor=(1.05, 1))
             legend.get_title().set_fontsize('18')

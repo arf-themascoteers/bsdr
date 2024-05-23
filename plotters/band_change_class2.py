@@ -28,9 +28,6 @@ def get_min_max_lims():
 
 min_lim, max_lim = get_min_max_lims()
 
-
-
-
 fig, ax = plt.subplots(1, 2, figsize=(20, 6))
 for ds_index, dataset in enumerate(datasets.keys()):
     file = f"bsdr-{dataset}-5-0-0.csv"
@@ -49,23 +46,13 @@ for ds_index, dataset in enumerate(datasets.keys()):
     ax[ds_index].tick_params(axis='both', which='major', labelsize=20)
     ax[ds_index].set_xlim(0, 500)
     ax[ds_index].set_ylim(1, datasets[dataset]+1)
-    # for i in range(1,6):
-    #     ax[ds_index].plot(df2["epoch"], df2[f"band_{i}"], label=f"Target Index {i}")
-
-    ax[ds_index].set_xlabel('Epoch', fontsize=22)
-    ax[ds_index].tick_params(axis='both', which='major', labelsize=20)
-    ax[ds_index].set_xlim(0, 500)
-    ax[ds_index].set_ylim(0, 1)
-    ax[ds_index].plot(df["epoch"], df["validation_accuracy"], label="Overall Accuracy (OA)")
-    ax[ds_index].plot(df["epoch"], df["validation_kappa"], label="Cohen's kappa ($\kappa$)")
-    ax[ds_index].grid(True, which='both', linestyle='--', linewidth=0.5)
-    # if ds_index == 1:
-    #     ax[ds_index].legend(loc='lower right', fontsize=25, ncol=2,  bbox_to_anchor=(0.2, -0.35))
-
+    for i in range(1,6):
+        ax[ds_index].plot(df2["epoch"], df2[f"band_{i}"], label=f"Target Index {i}")
     ax[ds_index].set_title(dataset_names[ds_index], fontsize=25)
+    ax[ds_index].grid(True, which='both', linestyle='--', linewidth=0.5)
 
     if ds_index == 0:
-        ax[ds_index].legend(loc='upper right', ncol=5, bbox_to_anchor=(1.9, -0.2), fontsize=20)
+        ax[ds_index].legend(loc='upper right', ncol=5, bbox_to_anchor=(2.5, 1.55), fontsize=20)
 
 
 # for ax in ax.flat:
@@ -76,8 +63,10 @@ subfolder = os.path.join("../saved_figs", "bands")
 if not os.path.exists(subfolder):
     os.mkdir(subfolder)
 
-path = os.path.join(subfolder, f"band_change2.png")
+path = os.path.join(subfolder, f"band_change1.png")
 fig.subplots_adjust(wspace=0.5, hspace=0.5)
+fig.subplots_adjust(top=0.7)
 fig.subplots_adjust(bottom=0.3)
 plt.savefig(path)
 plt.clf()
+

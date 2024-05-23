@@ -6,15 +6,15 @@ import matplotlib.pyplot as plt
 root = "../saved_figs"
 df_original = pd.read_csv("../final_results/regression.csv")
 priority_order = ['MCUVE', 'SPA', 'BS-Net-FC', 'BSDR', 'All Bands']
-display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'BSDR', 'All Bands']
+display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'Proposed BSDR', 'All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
 colors = ['#909c86', '#e389b9', '#269658', '#f20a21', '#000000']
 markers = ['s', 'P', 'D', 'o', '*', '.']
 labels = ["Logarithmic Training Time"]
-df_original["time"] = np.log10(df_original["time"].replace(0, 1))  # To avoid -inf for zero values
-min_time = df_original["time"].min()-0.1
-max_time = df_original["time"].max()+0.1
+#df_original["time"] = np.log10(df_original["time"].replace(0, 1))  # To avoid -inf for zero values
+# min_time = df_original["time"].min()-0.1
+# max_time = df_original["time"].max()+0.1
 datasets = ["LUCAS"]
 
 for metric_index,metric in enumerate(["time"]):
@@ -40,8 +40,9 @@ for metric_index,metric in enumerate(["time"]):
 
         axes.set_xlabel('Target size', fontsize=18)
         axes.set_ylabel(labels[metric_index], fontsize=18)
-        axes.set_ylim(min_time, max_time)
+#        axes.set_ylim(min_time, max_time)
         axes.tick_params(axis='both', which='major', labelsize=14)
+        axes.set_yscale('log')
         if ds_index == len(datasets)-1:
             legend = axes.legend(title="Algorithms", loc='upper left', fontsize=18,bbox_to_anchor=(1.05, 1))
             legend.get_title().set_fontsize('18')

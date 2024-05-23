@@ -25,6 +25,7 @@ ax[0].set_ylim(1, 4201)
 for i in range(1,6):
     ax[0].plot(df2["epoch"], df2[f"band_{i}"], label=f"Target Index {i}")
 ax[0].legend(loc='upper right', ncol=2, bbox_to_anchor=(0.9, 1.25), fontsize=22)
+ax[0].grid(True, which='both', linestyle='--', linewidth=0.5)
     
 ax[1].set_xlabel('Epoch', fontsize=30)
 ax[1].set_ylabel('$R^2$', color='tab:blue', fontsize=30)
@@ -32,6 +33,7 @@ ax[1].tick_params(axis='both', which='major', labelsize=20)
 ax[1].tick_params(axis='y', labelcolor='tab:blue')
 ax[1].set_xlim(0, 500)
 ax[1].plot(df["epoch"], df["validation_r2"], color='tab:blue')
+ax[1].grid(True, which='both', linestyle='--', linewidth=0.5)
 
 ax2 = ax[1].twinx()
 ax2.set_xlabel('Epoch', fontsize=30)
@@ -40,6 +42,7 @@ ax2.tick_params(axis='both', which='major', labelsize=20)
 ax2.tick_params(axis='y', labelcolor='tab:red')
 ax2.set_xlim(0, 500)
 ax2.plot(df["epoch"], df["validation_rmse"], color='tab:red')
+
 
 #     ax[0].legend(loc='upper right', ncol=5, bbox_to_anchor=(2.7, 1.3), fontsize=22)
 #
@@ -56,12 +59,12 @@ ax2.plot(df["epoch"], df["validation_rmse"], color='tab:red')
 # fig.subplots_adjust(wspace=0.5, hspace=0.5)
 #plt.tight_layout()
 
-for spine in ax[0].spines.values():
-    spine.set_visible(False)
-for spine in ax[1].spines.values():
-    spine.set_visible(False)
-for spine in ax2.spines.values():
-    spine.set_visible(False)
+# for spine in ax[0].spines.values():
+#     spine.set_visible(False)
+# for spine in ax[1].spines.values():
+#     spine.set_visible(False)
+# for spine in ax2.spines.values():
+#     spine.set_visible(False)
 
 plt.tight_layout()
 fig.subplots_adjust(wspace=0.4)

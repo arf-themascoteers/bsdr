@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 root = "../saved_figs"
 df_original = pd.read_csv("../final_results/regression.csv")
 priority_order = ['MCUVE', 'SPA', 'BS-Net-FC', 'BSDR', 'All Bands']
-display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'BSDR', 'All Bands']
+display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'Proposed BSDR', 'All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
 colors = ['#909c86', '#e389b9', '#269658', '#f20a21', '#000000']
