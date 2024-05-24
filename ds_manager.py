@@ -66,7 +66,7 @@ class DSManager:
 
     @staticmethod
     def get_spectral_columns(df):
-        return list(df.columns)[1:]
+        return list(df.columns)[0:-1]
 
     @staticmethod
     def get_y_column(dataset):
