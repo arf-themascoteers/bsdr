@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 root = "../saved_figs"
 df_original = pd.read_csv("../final_results/classification.csv")
 priority_order = ['MCUVE', 'SPA', 'BS-Net-FC', 'Zhang et al.', 'BSDR', 'All Bands']
-display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'BS-Net-Classifier [25]', 'Proposed BSDR', 'All Bands']
+display_alg = ['MCUVE [26]', 'SPA [25]', 'BS-Net-FC [8]', 'BS-Net-Classifier [15]', 'Proposed BSDR', 'All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
 colors = ['#909c86', '#e389b9', '#269658', '#5c1ad6', '#f20a21', '#000000']
 markers = ['s', 'P', 'D', '^', 'o', '*', '.']
-labels = ["Logarithmic Training Time","OA", "$\kappa$"]
+labels = ["Logarithmic Training Time","OA", r"$\kappa$"]
 # df_original["time"] = np.log10(df_original["time"].replace(0, 1))  # To avoid -inf for zero values
 # min_time = df_original["time"].min()-0.1
 # max_time = df_original["time"].max()+0.1
@@ -56,6 +56,6 @@ for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
     path = os.path.join(subfolder, f"time.png")
     plt.tight_layout()
     fig.subplots_adjust(wspace=0.5)
-    plt.savefig(path)
+    plt.savefig(path, dpi=300)
     plt.close(fig)
 

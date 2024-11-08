@@ -27,6 +27,7 @@ for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
         for index, algorithm in enumerate(priority_order):
             alg_df = dataset_df[dataset_df["algorithm"] == algorithm]
             alg_df = alg_df.sort_values(by='target_size')
+            alg_df["time"] = 1/alg_df["time"]
 
             lw = 3
             if algorithm == "BSDR":
@@ -48,7 +49,7 @@ for metric_index,metric in enumerate(["time"]):#, "metric1", "metric2"]):
         axes[ds_index].set_ylabel(labels[metric_index], fontsize=18)
 #        axes[ds_index].set_ylim(min_time, max_time)
         axes[ds_index].tick_params(axis='both', which='major', labelsize=14)
-        axes[ds_index].set_yscale('log')
+        #axes[ds_index].set_yscale('log')
         if ds_index == len(datasets)-1:
             legend = axes[ds_index].legend(title="Algorithms", loc='upper left', fontsize=18,bbox_to_anchor=(1.05, 1))
             legend.get_title().set_fontsize('18')

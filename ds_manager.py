@@ -1,10 +1,9 @@
 import pandas as pd
 from sklearn import model_selection
-from sklearn.preprocessing import MinMaxScaler
-import numpy as np
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
 from data_splits import DataSplits
+from sklearn.preprocessing import LabelEncoder
 
 
 class DSManager:
@@ -13,14 +12,13 @@ class DSManager:
         self.folds = folds
         dataset_path = f"data/{name}.csv"
         df = pd.read_csv(dataset_path)
-        self.X_columns = DSManager.get_spectral_columns(df)
-        self.y_column = DSManager.get_y_column(self.name)
-        df = df[self.X_columns+[self.y_column]]
+        self.X_columns = df.columns[0:-1]
+        self.y_column = df.columns[-1]
         df = df.sample(frac=1, random_state=0)
         if self.get_task() != "regression":
-            df[self.y_column], class_labels = pd.factorize(df[self.y_column])
+            le = LabelEncoder()
+            df[self.y_column] = le.fit_transform(df[self.y_column])
         self.full_data = df.to_numpy()
-        self.scaler = self._normalize()
 
     def __repr__(self):
         return self.get_name()
@@ -52,19 +50,6 @@ class DSManager:
         return len(self.X_columns)
 
     @staticmethod
-    def wavelengths_itr():
-        wvs = []
-        spec = 400
-        while spec <= 2499.5:
-            n_spec = spec
-            if int(n_spec) == spec:
-                n_spec = int(n_spec)
-            wavelength = str(n_spec)
-            yield wavelength
-            spec = spec + 0.5
-        return wvs
-
-    @staticmethod
     def get_spectral_columns(df):
         return list(df.columns)[0:-1]
 
@@ -75,18 +60,6 @@ class DSManager:
         if "indian_pines" in dataset:
             return "class"
         return "oc"
-
-    def _normalize(self):
-        normalized_len = self.full_data.shape[1]
-        if self.get_task() == "classification":
-            normalized_len = self.full_data.shape[1] - 1
-        for i in range(normalized_len):
-            scaler = MinMaxScaler()
-            x_scaled = scaler.fit_transform(self.full_data[:, i].reshape(-1, 1))
-            self.full_data[:, i] = np.squeeze(x_scaled)
-            if self.get_task() == "regression" and i == self.full_data.shape[1]-1:
-                return scaler
-        return None
 
     def get_k_folds(self):
         if self.folds == 1:

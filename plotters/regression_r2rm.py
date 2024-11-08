@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 root = "../saved_figs"
 df_original = pd.read_csv("../final_results/regression.csv")
 priority_order = ['MCUVE', 'SPA', 'BS-Net-FC', 'BSDR', 'All Bands']
-display_alg = ['MCUVE [21]', 'SPA [20]', 'BS-Net-FC [28]', 'Proposed BSDR', 'All Bands']
+display_alg = ['MCUVE [26]', 'SPA [25]', 'BS-Net-FC [8]', 'Proposed BSDR', 'All Bands']
 df_original['algorithm'] = pd.Categorical(df_original['algorithm'], categories=priority_order, ordered=True)
 df_original = df_original.sort_values('algorithm')
 colors = ['#909c86', '#e389b9', '#269658', '#f20a21', '#000000']
@@ -51,6 +51,6 @@ os.makedirs(subfolder, exist_ok=True)
 path = os.path.join(subfolder, f"r2rm.png")
 plt.tight_layout()
 fig.subplots_adjust(wspace=0.5)
-plt.savefig(path)
+plt.savefig(path, dpi=300)
 plt.close(fig)
 
