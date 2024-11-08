@@ -12,8 +12,6 @@ def calculate_r2(y, y_hat, scaler):
     return r2
 
 
-def calculate_rmse(y, y_hat, scaler):
-    y = scaler.inverse_transform(y.reshape(-1, 1)).reshape(-1)
-    y_hat = scaler.inverse_transform(y_hat.reshape(-1, 1)).reshape(-1)
+def calculate_rmse(y, y_hat):
     rmse = math.sqrt(mean_squared_error(y, y_hat))
     return rmse

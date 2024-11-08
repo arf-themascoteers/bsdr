@@ -17,7 +17,7 @@ def evaluate_train_test_pair(task, evaluation_train_x, evaluation_train_y, evalu
 def calculate_metrics(task, y_test, y_pred, scaler):
     if task == "classification":
         return calculate_metrics_for_classification(y_test, y_pred)
-    return calculate_metrics_for_regression(y_test, y_pred, scaler)
+    return calculate_metrics_for_regression(y_test, y_pred)
 
 
 def calculate_metrics_for_classification(y_test, y_pred):
@@ -26,9 +26,9 @@ def calculate_metrics_for_classification(y_test, y_pred):
     return accuracy, kappa
 
 
-def calculate_metrics_for_regression(y_test, y_pred, scaler):
-    r2 = calculator.calculate_r2(y_test, y_pred, scaler)
-    rmse = calculator.calculate_rmse(y_test, y_pred, scaler)
+def calculate_metrics_for_regression(y_test, y_pred):
+    r2 = calculator.calculate_r2(y_test, y_pred)
+    rmse = calculator.calculate_rmse(y_test, y_pred)
     return r2, rmse
 
 

@@ -95,8 +95,8 @@ class BSDR11:
         y = y.detach().cpu().numpy()
         if self.is_regression():
             y_hat = y_hat.reshape(-1)
-            r2 = calculator.calculate_r2(y, y_hat, self.split.scaler)
-            rmse = calculator.calculate_rmse(y, y_hat, self.split.scaler)
+            r2 = calculator.calculate_r2(y, y_hat)
+            rmse = calculator.calculate_rmse(y, y_hat)
             self.model.train()
             return max(r2,0), rmse
         y_hat = np.argmax(y_hat, axis=1)
