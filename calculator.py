@@ -5,9 +5,7 @@ from sklearn.metrics import mean_squared_error
 import math
 
 
-def calculate_r2(y, y_hat, scaler):
-    y = scaler.inverse_transform(y.reshape(-1, 1)).reshape(-1)
-    y_hat = scaler.inverse_transform(y_hat.reshape(-1, 1)).reshape(-1)
+def calculate_r2(y, y_hat):
     r2 = r2_score(y, y_hat)
     return r2
 

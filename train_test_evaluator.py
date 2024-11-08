@@ -7,11 +7,11 @@ from sklearn.neural_network import MLPClassifier
 import calculator
 
 
-def evaluate_train_test_pair(task, evaluation_train_x, evaluation_train_y, evaluation_test_x, evaluation_test_y, scaler):
+def evaluate_train_test_pair(task, evaluation_train_x, evaluation_train_y, evaluation_test_x, evaluation_test_y):
     evaluator_algorithm = get_metric_evaluator(task)
     evaluator_algorithm.fit(evaluation_train_x, evaluation_train_y)
     y_pred = evaluator_algorithm.predict(evaluation_test_x)
-    return calculate_metrics(task, evaluation_test_y, y_pred, scaler)
+    return calculate_metrics(task, evaluation_test_y, y_pred)
 
 
 def calculate_metrics(task, y_test, y_pred, scaler):

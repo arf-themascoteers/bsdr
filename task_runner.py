@@ -88,8 +88,7 @@ class TaskRunner:
         task = DSManager.get_task_by_dataset_name(splits.get_name())
         metric1, metric2 = evaluate_train_test_pair(task,
                                                     splits.evaluation_train_x, splits.evaluation_train_y,
-                                                    splits.evaluation_test_x, splits.evaluation_test_y,
-                                                    splits.scaler)
+                                                    splits.evaluation_test_x, splits.evaluation_test_y)
         self.reporter.write_details_all_features(fold, splits.get_name(), metric1, metric2)
 
 
